@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
             PositionsTableSeeder::class,
             UsersTableSeeder::class,
             OvertimeRequestsTableSeeder::class,
-            OvertimeApprovalsTabelSeeder::class,
         ]);
 
         // User::factory(10)->create();

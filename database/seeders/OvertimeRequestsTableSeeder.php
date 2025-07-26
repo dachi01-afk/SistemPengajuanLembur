@@ -16,6 +16,7 @@ class OvertimeRequestsTableSeeder extends Seeder
         DB::table('overtime_requests')->insert([
             [
                 'user_id' => 2, // Andi Pegawai
+                'department_id' => 3,
                 'overtime_date' => now()->subDays(3),
                 'start_time' => '18:00:00',
                 'end_time' => '21:00:00',
@@ -26,6 +27,7 @@ class OvertimeRequestsTableSeeder extends Seeder
             ],
             [
                 'user_id' => 2,
+                'department_id' => 3,
                 'overtime_date' => now()->subDays(7),
                 'start_time' => '17:00:00',
                 'end_time' => '20:00:00',

@@ -14,11 +14,18 @@ return new class extends Migration
         Schema::create('overtime_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
             $table->date('overtime_date');
             $table->time('start_time');
             $table->time('end_time');
             $table->text('reason');
+
+            // Approval system
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->OnDelete('set null');
+            $table->timestamp('approved_at')->nullable();
+            $table->text('approval_note')->nullable();
+
             $table->timestamps();
         });
     }

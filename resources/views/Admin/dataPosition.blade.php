@@ -7,22 +7,26 @@
   {{-- Show data --}}
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $title }}</h2>
     <div class="card-body">
-      <button @click="isModalOpen = true" class="btnAdd px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Tambah Data <i class="fa-solid fa-user-plus"></i></button>
+      <div class="mb-2">
+        <button @click="isModalOpen = true" class=" btnAdd inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Tambah Data <i class="fa-solid fa-user-plus"></i></button>
+      </div>
+      <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="overflow-x-auto">
-          <table id="positionTable" class="table table-striped table-bordered min-w-full table-auto" cellspacing="0" width="100%">
+          <table id="positionTable" class="table w-full whitespace-no-wrap">
             <thead>
             <tr>
-                {{-- <th class="text-gray-700 dark:text-gray-200">No</th> --}}
-                <th class="text-gray-700 dark:text-gray-200">Nama</th>
-                <th class="text-gray-700 dark:text-gray-200">Aksi</th>
+                {{-- <th class="px-4 py-3">No</th> --}}
+                <th class="px-4 py-3">Nama</th>
+                <th class="px-4 py-3">Aksi</th>
             </tr>
             </thead>
-            <tbody class="divide-y text-gray-700 dark:text-gray-200">
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
               @foreach ($positions as $i => $item)
-              <tr>
+              <tr class="text-gray-700 dark:text-gray-400">
               {{-- <td>{{ $i + 1 }}</td> --}}
-              <td>{{ $item->position }}</td>
-              <td class="flex items-center space-x-3">
+              <td class="px-4 py-3 text-sm">{{ $item->position }}</td>
+              <td>
+                <div class="flex items-center space-x-3">
                   <button type="button"
                   @click="isModalOpen = true"
                       class="text-purple-600 hover:text-purple-800 focus:outline-none editBtn" data-id="{{ $item->id }}" data-position="{{ $item->position }}">
@@ -32,12 +36,14 @@
                       class="text-purple-600 hover:text-purple-800 focus:outline-none deleteBtn" data-id="{{ $item->id }}">
                       <i class="fa-solid fa-trash-can"></i>
                   </button>
+                </div>
                 </td>
               </tr>
               @endforeach
-          </tbody>
-      </table>  
-    </div>                  
+            </tbody>
+          </table>  
+        </div>                  
+      </div>                  
   </div>
 
   

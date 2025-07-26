@@ -3,7 +3,10 @@
 use App\Http\Controllers\apps\UserController;
 use App\Http\Controllers\apps\PositionController;
 use App\Http\Controllers\apps\DepartmentController;
-use App\Http\Controllers\apps\PengajuanLemburController;
+use App\Http\Controllers\apps\OvertimeRequestController;
+use App\Http\Controllers\apps\DashboardController;
+use App\Http\Controllers\apps\ApprovalController;
+use App\Http\Controllers\apps\HistoryController;
 use App\Http\Controllers\testingController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,54 +18,10 @@ Route::get('/', function () {
     return view('Admin/dashboard');
 });
 
-// Route::prefix('apps')->group(function () {
-//     Route::get('/', function () {
-//         return view('Admin/dashboard');
-//     });
-
-//     Route::prefix('admin')->group(function () {
-
-//         Route::get('/', function () {
-//             return view('Admin/dashboard');
-//         });
-
-//         Route::prefix('pegawai')->name('pegawai.')->group(function () {
-
-//             Route::get('/',                 [UserController::class, 'index'])->name('index');
-//             Route::get('/data',             [UserController::class, 'getShowData'])->name('data');
-
-//             Route::post('/create',          [UserController::class, 'insertData'])->name('create');
-//             Route::get('/edit',             [UserController::class, 'Edit'])->name('edit');
-//             Route::put('/update/{id}',      [UserController::class, 'updateData'])->name('update');
-//             Route::delete('/delete/{id}',   [UserController::class, 'deleteData'])->name('delete');
-//         });
-
-//         Route::prefix('position')->name('position.')->group(function () {
-
-//             Route::get('/',                 [PositionController::class, 'index'])->name('index');
-//             Route::get('/getyId/{id}',      [PositionController::class, 'getById'])->name('getbyid');
-
-//             Route::post('/create',          [PositionController::class, 'insertData'])->name('create');
-//             Route::put('/update/{id}',      [PositionController::class, 'updateData'])->name('update');
-//             Route::delete('/delete/{id}',   [PositionController::class, 'deleteData'])->name('delete');
-//         });
-
-//         Route::prefix('department')->name('department.')->group(function () {
-
-//             Route::get('/',                 [DepartmentController::class, 'index'])->name('index');
-//             Route::get('/getyId/{id}',      [DepartmentController::class, 'getById'])->name('getbyid');
-
-//             Route::post('/create',          [DepartmentController::class, 'insertData'])->name('create');
-//             Route::put('/update/{id}',      [DepartmentController::class, 'updateData'])->name('update');
-//             Route::delete('/delete/{id}',   [DepartmentController::class, 'deleteData'])->name('delete');
-//         });
-//     });
-// });
-
 
 Route::prefix('apps')->group(function () {
     // Halaman dashboard utama
-    Route::get('/', fn() => view('Admin/dashboard'))->name('dashboard');
+    Route::get('/',                 [DashboardController::class, 'index'])->name('index');
 
     // ================================
     // ========== ADMIN ==============
@@ -100,13 +59,25 @@ Route::prefix('apps')->group(function () {
         });
 
         // Pengajuan Lembur
-        Route::get('/pengajuan',            [PengajuanLemburController::class, 'index'])->name('admin.pengajuan.index');
+        Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
+            Route::get('/',                           [OvertimeRequestController::class, 'index'])->name('index');
+            Route::get('/get-user-department/{id}',   [OvertimeRequestController::class, 'getUserDepartment'])->name('get-user-department');
+            Route::post('/create',                    [OvertimeRequestController::class, 'insertData'])->name('create');
+        });
 
         // Approval Lembur
-        // Route::get('/approval',             [ApprovalController::class, 'index'])->name('admin.approval.index');
+        Route::prefix('approval')->name('approval.')->group(function () {
+            Route::get('/',                           [ApprovalController::class, 'index'])->name('index');
+            Route::patch('/approve/{id}',             [ApprovalController::class, 'Approve'])->name('approve');
+            Route::patch('/reject/{id}',              [ApprovalController::class, 'Reject'])->name('reject');
+            Route::get('/detail/{id}',                [ApprovalController::class, 'showDetail'])->name('detail');
+        });
 
         // Riwayat Lembur
-        // Route::get('/riwayat',              [RiwayatController::class, 'index'])->name('admin.riwayat.index');
+        Route::prefix('history')->name('history.')->group(function () {
+            Route::get('/',                              [HistoryController::class, 'index'])->name('index');
+            Route::get('/detail/{id}',                   [HistoryController::class, 'showDetail'])->name('detail');
+        });
 
         // Laporan
         // Route::get('/laporan',              [ReportController::class, 'index'])->name('admin.laporan.index');

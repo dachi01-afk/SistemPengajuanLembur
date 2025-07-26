@@ -247,24 +247,30 @@
         @default
 
           <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $title }}</h2>
-            <div class="card-body">
-              <a href="{{ route('pegawai.index', ['view' => 'add']) }}" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Tambah Data <i class="fa-solid fa-user-plus"></i></a>
-                <div class="overflow-x-auto">
-                  <table id="pegawaiTable" class="dataTable table table-striped table-bordered min-w-full table-auto" cellspacing="0" width="100%">
+          <div class="mb-2">
+            <a href="{{ route('pegawai.index', ['view' => 'add']) }}"
+              class="inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+              <i class="fa-solid fa-user-plus mr-2"></i>Tambah Data
+            </a>
+          </div>
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                  <table id="pegawaiTable" class="w-full whitespace-no-wrap">
                   <thead>
-                  <tr>
+                  <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                       {{-- <th class="text-gray-700 dark:text-gray-200">No</th> --}}
-                      <th class="text-gray-700 dark:text-gray-200">Nama</th>
-                      <th class="text-gray-700 dark:text-gray-200">Nip</th>
-                      <th class="text-gray-700 dark:text-gray-200">No Telp</th>
-                      <th class="text-gray-700 dark:text-gray-200">Email</th>
-                      <th class="text-gray-700 dark:text-gray-200">Role</th>
-                      <th class="text-gray-700 dark:text-gray-200">Bidang</th>
-                      <th class="text-gray-700 dark:text-gray-200">Posisi</th>
-                      <th class="text-gray-700 dark:text-gray-200">Aksi</th>
+                      <th class="px-4 py-3">Nama</th>
+                      <th class="px-4 py-3">Nip</th>
+                      {{-- <th class="px-4 py-3">No Telp</th> --}}
+                      <th class="px-4 py-3">Email</th>
+                      <th class="px-4 py-3">Role</th>
+                      <th class="px-4 py-3">Bidang</th>
+                      <th class="px-4 py-3">Posisi</th>
+                      <th class="px-4 py-3">Aksi</th>
                   </tr>
               </thead>
-              <tbody class="divide-y text-gray-700 dark:text-gray-200"></tbody>
+              <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              </tbody>
           </table>
         </div>            
       </div>      
@@ -335,13 +341,20 @@ $(document).ready(function() {
               // { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
               { data: 'name', name: 'name' },
               { data: 'nip', name: 'nip' },
-              { data: 'no_tlp', name: 'no_tlp' },
+              // { data: 'no_tlp', name: 'no_tlp' },
               { data: 'email', name: 'email' },
               { data: 'role', name: 'roles.role' },
               { data: 'department', name: 'departments.department' },
               { data: 'position', name: 'positions.position' },
               { data: 'action', name: 'action', orderable: false, searchable: false }
-          ]
+          ],  
+           createdRow: function(row, data, dataIndex) {
+              // Tambahkan class ke seluruh <td>
+              $(row).find('td').addClass('px-4 py-3 text-sm');
+
+              // Tambahkan class ke <tr>
+              $(row).addClass('text-gray-700 dark:text-gray-400');
+          }
       });
   });
 
