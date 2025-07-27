@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\apps;
+namespace App\Http\Controllers\apps\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Department;
+use App\Models\Position;
 
-class DepartmentController extends Controller
+class PositionController extends Controller
 {
     protected $path = "Admin";
-    protected $module = "dataDepartment";
-    protected $title = "Daftar Department";
+    protected $module = "dataPosition";
+    protected $title = "Daftar Jabatan";
 
 
 
@@ -21,13 +22,13 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        $departments = Department::all();
+        $positions = Position::all();
 
         return view($this->path . '.' . $this->module, [
             'title' => $this->title,
             'path' => $this->path,
             'module' => $this->module,
-            'departments' => $departments,
+            'positions' => $positions,
         ]);
     }
 
@@ -35,20 +36,20 @@ class DepartmentController extends Controller
     public function insertData(Request $request)
     {
 
-
         $validated = $request->validate([
-            'department' => 'required|string|min:3|max:255|unique:departments,department',
+            'position' => 'required|string|min:3|max:255|unique:positions,position',
         ]);
 
-        $department = Department::create([
-            'department' => $validated['department'],
+        $position = Position::create([
+            'position' => $validated['position'],
         ]);
 
         return response()->json([
             'message' => 'Data berhasil disimpan',
-            'data' => $department,
+            'data' => $position,
         ]);
-        // try {
+
+        // try{
         // } catch (\Exception $e) {
         //     return response()->json([
         //         'error' => $e->getMessage()
@@ -58,20 +59,20 @@ class DepartmentController extends Controller
 
     public function getById($id)
     {
-        $department = Department::findOrFail($id);
-        return response()->json($department);
+        $position = Position::findOrFail($id);
+        return response()->json($position);
     }
 
 
     public function updateData(Request $request, $id)
     {
         $validated = $request->validate([
-            'department' => 'required|string|min:3|max:255|unique:departments,department,' . $id,
+            'position' => 'required|string|min:3|max:255|unique:positions,position,' . $id,
         ]);
 
-        $department = Department::findOrFail($id);
-        $department->update([
-            'department' => $validated['department']
+        $position = Position::findOrFail($id);
+        $position->update([
+            'position' => $validated['position']
         ]);
 
         return response()->json(['message' => 'Data berhasil diperbarui']);
@@ -79,7 +80,7 @@ class DepartmentController extends Controller
 
     public function deleteData($id)
     {
-        $data = department::findOrFail($id);
+        $data = Position::findOrFail($id);
         $data->delete();
 
         return response()->json([

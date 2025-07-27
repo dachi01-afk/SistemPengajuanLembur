@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\apps\UserController;
-use App\Http\Controllers\apps\PositionController;
-use App\Http\Controllers\apps\DepartmentController;
-use App\Http\Controllers\apps\OvertimeRequestController;
-use App\Http\Controllers\apps\DashboardController;
-use App\Http\Controllers\apps\ApprovalController;
-use App\Http\Controllers\apps\HistoryController;
+use App\Http\Controllers\apps\Admin\UserController;
+use App\Http\Controllers\apps\Admin\PositionController;
+use App\Http\Controllers\apps\Admin\DepartmentController;
+use App\Http\Controllers\apps\Admin\OvertimeRequestController;
+use App\Http\Controllers\apps\Admin\DashboardController;
+use App\Http\Controllers\apps\Admin\ApprovalController;
+use App\Http\Controllers\apps\Admin\HistoryController;
 use App\Http\Controllers\testingController;
 use Illuminate\Support\Facades\Route;
 

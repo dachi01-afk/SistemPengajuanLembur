@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\apps;
+namespace App\Http\Controllers\apps\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Position;
+use App\Models\Department;
 
-class PositionController extends Controller
+class DepartmentController extends Controller
 {
     protected $path = "Admin";
-    protected $module = "dataPosition";
-    protected $title = "Daftar Jabatan";
+    protected $module = "dataDepartment";
+    protected $title = "Daftar Department";
 
 
 
@@ -22,13 +21,13 @@ class PositionController extends Controller
 
     public function index()
     {
-        $positions = Position::all();
+        $departments = Department::all();
 
         return view($this->path . '.' . $this->module, [
             'title' => $this->title,
             'path' => $this->path,
             'module' => $this->module,
-            'positions' => $positions,
+            'departments' => $departments,
         ]);
     }
 
@@ -36,20 +35,20 @@ class PositionController extends Controller
     public function insertData(Request $request)
     {
 
+
         $validated = $request->validate([
-            'position' => 'required|string|min:3|max:255|unique:positions,position',
+            'department' => 'required|string|min:3|max:255|unique:departments,department',
         ]);
 
-        $position = Position::create([
-            'position' => $validated['position'],
+        $department = Department::create([
+            'department' => $validated['department'],
         ]);
 
         return response()->json([
             'message' => 'Data berhasil disimpan',
-            'data' => $position,
+            'data' => $department,
         ]);
-
-        // try{
+        // try {
         // } catch (\Exception $e) {
         //     return response()->json([
         //         'error' => $e->getMessage()
@@ -59,20 +58,20 @@ class PositionController extends Controller
 
     public function getById($id)
     {
-        $position = Position::findOrFail($id);
-        return response()->json($position);
+        $department = Department::findOrFail($id);
+        return response()->json($department);
     }
 
 
     public function updateData(Request $request, $id)
     {
         $validated = $request->validate([
-            'position' => 'required|string|min:3|max:255|unique:positions,position,' . $id,
+            'department' => 'required|string|min:3|max:255|unique:departments,department,' . $id,
         ]);
 
-        $position = Position::findOrFail($id);
-        $position->update([
-            'position' => $validated['position']
+        $department = Department::findOrFail($id);
+        $department->update([
+            'department' => $validated['department']
         ]);
 
         return response()->json(['message' => 'Data berhasil diperbarui']);
@@ -80,7 +79,7 @@ class PositionController extends Controller
 
     public function deleteData($id)
     {
-        $data = Position::findOrFail($id);
+        $data = department::findOrFail($id);
         $data->delete();
 
         return response()->json([
