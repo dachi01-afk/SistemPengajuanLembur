@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\apps\Admin;
+namespace App\Http\Controllers\apps\Atasan;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Models\OvertimeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class HistoryController extends Controller
+class HistoryAtasanController extends Controller
 {
     // Menampilkan halaman histori
     public function index()
@@ -18,7 +18,7 @@ class HistoryController extends Controller
             ->orderBy('approved_at', 'desc')
             ->get();
 
-        return view('Admin.dataHistory', compact('dataPengajuan'));
+        return view('Atasan.dataHistory', compact('dataPengajuan'));
     }
 
     // Menampilkan detail data pengajuan via AJAX

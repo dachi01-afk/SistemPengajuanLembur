@@ -5,7 +5,7 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid" x-data="{ isModalOpen: false }">
 
   {{-- Show data --}}
-    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $title }}</h2>
+    <h2 class="my-6 text-2xl font-semibold text-gray-700">{{ $title }}</h2>
     <div class="card-body">
       <div class="mb-2">
         <button @click="isModalOpen = true" class=" btnAdd inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Tambah Data <i class="fa-solid fa-user-plus"></i></button>
@@ -20,9 +20,9 @@
                 <th class="px-4 py-3">Aksi</th>
             </tr>
             </thead>
-            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            <tbody class="bg-white divide-y">
               @foreach ($positions as $i => $item)
-              <tr class="text-gray-700 dark:text-gray-400">
+              <tr class="text-gray-700">
               {{-- <td>{{ $i + 1 }}</td> --}}
               <td class="px-4 py-3 text-sm">{{ $item->position }}</td>
               <td>
@@ -70,14 +70,14 @@
   x-transition:leave-end="opacity-0 transform translate-y-1/2"
   @click.away="isModalOpen = false"
   @keydown.escape.window="isModalOpen = false"
-  class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+  class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
   role="dialog"
   aria-modal="true"
   aria-labelledby="modalTitle"
 >
 
 <header class="flex justify-between items-center mb-4">
-  <h2 id="modalTitle" class="text-lg font-semibold text-gray-700 dark:text-gray-300">Tambah Jabatan</h2>
+  <h2 id="modalTitle" class="text-lg font-semibold text-gray-700">Tambah Jabatan</h2>
   <button type="button" @click="isModalOpen = false" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
 </header>
 
@@ -86,12 +86,12 @@
     @csrf
       <input type="hidden" id="jabatanId" name="jabatan_id">
       <label for="position" class="block text-sm">
-        <span class="text-gray-700 dark:text-gray-400">Nama Jabatan</span>
+        <span class="text-gray-700">Nama Jabatan</span>
         <input
           name="position"
           value="{{ old('position') }}"
           autocomplete="off"
-          class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('position') border-red-500 @enderror"
+          class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('position') border-red-500 @enderror"
         />
       </label>
 
@@ -209,7 +209,7 @@ $('#formJabatan').on('submit', function (e) {
         input.addClass('border-red-500');
         
         // Tambahkan pesan error setelah input
-        input.after('<p class="mt-1 text-xs text-red-600 dark:text-red-400">' + messages[0] + '</p>');
+        input.after('<p class="mt-1 text-xs text-red-600">' + messages[0] + '</p>');
     });
 
     // Fokus ke input pertama yang error

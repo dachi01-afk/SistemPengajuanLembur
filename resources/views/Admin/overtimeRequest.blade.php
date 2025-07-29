@@ -3,16 +3,16 @@
 
 <main class="h-full overflow-y-auto"> 
    
-    <div class="p-6 pb-8 bg-white dark:bg-gray-800 rounded-xl shadow-md w-full max-w-3xl mx-auto">
-    <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6">Pengajuan Lembur Baru</h2>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6">Pengajuan Lembur Baru</h2>
     
     <form id="formLembur">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-1 gap-5">
             <!-- Nama Pegawai -->
              <div>
-                <label class="block text-gray-700 dark:text-gray-200 mb-1">Nama Pegawai</label>
-                <select name="user_id" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Nama Pegawai</label>
+                <select name="user_id" class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
                     <option value="">-- Pilih Pegawai --</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->nip }})</option>
@@ -22,41 +22,41 @@
 
             <!-- Department -->
             <div>
-                <label class="block text-gray-700 dark:text-gray-200 mb-1">Departemen</label>
-                <input type="text" id="department_name" class="w-full px-3 py-2 border rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300" readonly>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Departemen</label>
+                <input type="text" id="department_name" class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" readonly>
                 <input type="hidden" name="department_id" id="department_id">
             </div>
 
             <!-- Tanggal Lembur -->
             <div>
-                <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Tanggal Lembur</label>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Tanggal Lembur</label>
                 <input type="date" name="tanggal"
-                    class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                    class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <!-- Jam Mulai -->
             <div>
-                <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Jam Mulai</label>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Jam Mulai</label>
                 <input type="time" name="jam_mulai"
-                    class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                    class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
             </div>
 
             <!-- Jam Selesai -->
             <div>
-                <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Jam Selesai</label>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Jam Selesai</label>
                 <input type="time" name="jam_selesai"
-                    class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                    class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
             </div>
 
             </div>
 
             <!-- Keterangan -->
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Keterangan</label>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Keterangan</label>
                 <textarea name="keterangan" rows="4"
-                    class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required
+                    class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required
                     placeholder="Contoh: Menyelesaikan laporan bulanan..."></textarea>
             </div>
         </div>

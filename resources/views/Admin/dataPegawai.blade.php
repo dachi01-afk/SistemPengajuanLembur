@@ -7,63 +7,63 @@
 
         @case('add')
 
-          <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Add Data</h2>
-          <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <h2 class="my-6 text-2xl font-semibold text-gray-700">Add Data</h2>
+          <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
             <form action="{{ route('pegawai.create') }}" method="POST" class="space-y-4" id="createPegawaiForm">
               @csrf         
               <label for="" class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Nama</span>
+                <span class="text-gray-700">Nama</span>
                 <input
                   name="name"
                   value="{{ old('name') }}"
-                  class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('name') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('name') border-red-500 @enderror"
                 />
               </label>
             
               <label for="" class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">NIP</span>
+                <span class="text-gray-700">NIP</span>
                 <input
                   name="nip"
                   value="{{ old('nip') }}"
-                  class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('nip') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('nip') border-red-500 @enderror"
                 />
               </label>
             
               <label for="" class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">No Telp</span>
+                <span class="text-gray-700">No Telp</span>
                 <input
                   name="no_tlp"
                   value="{{ old('no_tlp') }}"
-                  class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('no_tlp') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('no_tlp') border-red-500 @enderror"
                 />
               </label>
             
               <label for="" class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Email</span>
+                <span class="text-gray-700">Email</span>
                 <input
                   name="email"
                   type="email"
                   value="{{ old('email') }}"
-                  class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('email') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('email') border-red-500 @enderror"
                   placeholder="email@example.com"
                 />
               </label>
             
               <label for="" class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Password</span>
+                <span class="text-gray-700">Password</span>
                 <input
                   name="password"
                   type="password"
-                  class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('password') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('password') border-red-500 @enderror"
                   placeholder="******"
                 />
               </label>
             
               <label for="" class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Role</span>
+                <span class="text-gray-700">Role</span>
                 <select
                   name="role_id"
-                  class="block w-full mt-1 text-sm form-select dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('role_id') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('role_id') border-red-500 @enderror"
                 >
                 <option value="">--- select ---</option>
                 @foreach ($roles as $role)
@@ -75,10 +75,10 @@
               </label>
             
               <label for="" class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Department</span>
+                <span class="text-gray-700">Department</span>
                 <select
                   name="department_id"
-                  class="block w-full mt-1 text-sm form-select dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('department_id') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('department_id') border-red-500 @enderror"
                 >
                 <option value="">--- select ---</option>
                 @foreach ($departments as $department)
@@ -90,10 +90,10 @@
               </label>
             
               <label for="" class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Position</span>
+                <span class="text-gray-700">Position</span>
                 <select
                   name="position_id"
-                  class="block w-full mt-1 text-sm form-select dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('position_id') border-red-500 @enderror"
+                  class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('position_id') border-red-500 @enderror"
                 >
                 <option value="">--- select ---</option>
                 @foreach ($positions as $position)
@@ -107,7 +107,7 @@
               <div class="flex justify-end space-x-4 mt-6">
                 <a
                   href="{{ route('pegawai.index') }}"
-                  class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-md hover:bg-gray-400 focus:outline-none focus:shadow-outline-gray dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
+                  class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-md hover:bg-gray-400 focus:outline-none focus:shadow-outline-gray"
                 >
                   Cancel
                 </a>
@@ -125,65 +125,65 @@
 
         @case('edit')
 
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Edit Data</h2>
-            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700">Edit Data</h2>
+            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md">
             <form action="{{ route('pegawai.update', $editId) }}" method="POST" class="space-y-4" id="editPegawaiForm">
                 @csrf
                 @method('PUT')
               
             <label class="block text-sm">
-              <span class="text-gray-700 dark:text-gray-400">Nama</span>
+              <span class="text-gray-700">Nama</span>
               <input
                 name="name_edit"
                 value="{{ old('name', $editData->name ?? '') }}"
-                class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('name') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('name') border-red-500 @enderror"
               />
             </label>
 
             <label class="block text-sm">
-              <span class="text-gray-700 dark:text-gray-400">NIP</span>
+              <span class="text-gray-700">NIP</span>
               <input
                 name="nip_edit"
                 value="{{ old('nip', $editData->nip ?? '') }}"
-                class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('nip') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('nip') border-red-500 @enderror"
               />
             </label>
 
             <label class="block text-sm">
-              <span class="text-gray-700 dark:text-gray-400">No Telp</span>
+              <span class="text-gray-700">No Telp</span>
               <input
                 name="no_tlp_edit"
                 value="{{ old('no_tlp', $editData->no_tlp ?? '') }}"
-                class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('no_tlp') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('no_tlp') border-red-500 @enderror"
               />
             </label>
 
             <label class="block text-sm">
-              <span class="text-gray-700 dark:text-gray-400">Email</span>
+              <span class="text-gray-700">Email</span>
               <input
                 name="email_edit"
                 type="email"
                 value="{{ old('email', $editData->email ?? '') }}"
-                class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('email') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('email') border-red-500 @enderror"
                 placeholder="email@example.com"
               />
             </label>
 
             <label class="block text-sm">
-              <span class="text-gray-700 dark:text-gray-400">Password</span>
+              <span class="text-gray-700">Password</span>
               <input
                 name="password_edit"
                 type="password"
-                class="block w-full mt-1 text-sm form-input dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray @error('password') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-input focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('password') border-red-500 @enderror"
                 placeholder="******"
               />
             </label>
 
             <label class="block mt-4 text-sm">
-              <span class="text-gray-700 dark:text-gray-400">Role</span>
+              <span class="text-gray-700">Role</span>
               <select
                 name="role_id_edit"
-                class="block w-full mt-1 text-sm form-select dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('role_id') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('role_id') border-red-500 @enderror"
               >
                 <option value="">--- select ---</option>
                 @foreach ($roles as $role)
@@ -195,10 +195,10 @@
             </label>
 
             <label class="block mt-4 text-sm">
-              <span class="text-gray-700 dark:text-gray-400">Department</span>
+              <span class="text-gray-700">Department</span>
               <select
                 name="department_id_edit"
-                class="block w-full mt-1 text-sm form-select dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('department_id') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('department_id') border-red-500 @enderror"
               >
                 <option value="">--- select ---</option>
                 @foreach ($departments as $department)
@@ -210,10 +210,10 @@
             </label>
 
             <label class="block mt-4 text-sm">
-              <span class="text-gray-700 dark:text-gray-400">Position</span>
+              <span class="text-gray-700">Position</span>
               <select
                 name="position_id_edit"
-                class="block w-full mt-1 text-sm form-select dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray @error('position_id') border-red-500 @enderror"
+                class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple @error('position_id') border-red-500 @enderror"
               >
                 <option value="">--- select ---</option>
                 @foreach ($positions as $position)
@@ -227,7 +227,7 @@
             <div class="flex justify-end space-x-4 mt-6">
               <a
                 href="{{ route('pegawai.index') }}"
-                class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-md hover:bg-gray-400 focus:outline-none focus:shadow-outline-gray dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
+                class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-gray-300 border border-transparent rounded-md hover:bg-gray-400 focus:outline-none focus:shadow-outline-gray"
               >
                 Cancel
               </a>
@@ -246,7 +246,7 @@
 
         @default
 
-          <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $title }}</h2>
+          <h2 class="my-6 text-2xl font-semibold text-gray-700">{{ $title }}</h2>
           <div class="mb-2">
             <a href="{{ route('pegawai.index', ['view' => 'add']) }}"
               class="inline-block px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
@@ -257,8 +257,8 @@
                 <div class="w-full overflow-x-auto">
                   <table id="pegawaiTable" class="w-full whitespace-no-wrap">
                   <thead>
-                  <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                      {{-- <th class="text-gray-700 dark:text-gray-200">No</th> --}}
+                  <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
+                      {{-- <th class="text-gray-700">No</th> --}}
                       <th class="px-4 py-3">Nama</th>
                       <th class="px-4 py-3">Nip</th>
                       {{-- <th class="px-4 py-3">No Telp</th> --}}
@@ -269,7 +269,7 @@
                       <th class="px-4 py-3">Aksi</th>
                   </tr>
               </thead>
-              <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              <tbody class="bg-white divide-y">
               </tbody>
           </table>
         </div>            
@@ -353,7 +353,7 @@ $(document).ready(function() {
               $(row).find('td').addClass('px-4 py-3 text-sm');
 
               // Tambahkan class ke <tr>
-              $(row).addClass('text-gray-700 dark:text-gray-400');
+              $(row).addClass('text-gray-700');
           }
       });
   });
@@ -392,7 +392,7 @@ $(document).ready(function() {
                       input.addClass('border-red-500');
                       
                       // Tambahkan pesan error setelah input
-                      input.after('<p class="mt-1 text-xs text-red-600 dark:text-red-400">' + messages[0] + '</p>');
+                      input.after('<p class="mt-1 text-xs text-red-600">' + messages[0] + '</p>');
                   });
 
                   // Fokus ke input pertama yang error
@@ -446,7 +446,7 @@ $(document).ready(function() {
                       let input = $('[name="' + inputName + '"]');
 
                       input.addClass('border-red-500');
-                      input.after('<p class="mt-1 text-xs text-red-600 dark:text-red-400">' + messages[0] + '</p>');
+                      input.after('<p class="mt-1 text-xs text-red-600">' + messages[0] + '</p>');
                   });
 
                   // Fokus ke input pertama yang error

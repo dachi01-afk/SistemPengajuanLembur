@@ -3,16 +3,16 @@
     
  <body>
     <div
-      class="flex h-screen bg-gray-50 dark:bg-gray-900"
+      class="flex h-screen bg-gray-50"
       :class="{ 'overflow-hidden': isSideMenuOpen }"
     >
       <!-- Desktop sidebar -->
       <aside
-        class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0"
+        class="z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0"
       >
-        <div class="py-4 text-gray-500 dark:text-gray-400">
+        <div class="py-4 text-gray-500">
           <a
-            class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+            class="ml-6 text-lg font-bold text-gray-800"
             href="#"
           >
             SPL Admin Access
@@ -25,10 +25,10 @@
                 aria-hidden="true"
               ></span>
               <a
-                class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
                 href="{{ url('apps/') }}"
               >
-                <i class="fas fa-house w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-house w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Dashboard</span>
               </a>
             </li>
@@ -37,70 +37,70 @@
           <ul>
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="{{ url('apps/admin/pegawai') }}"
               >
-                <i class="fas fa-user-group w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-user-group w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Data Pegawai</span>
               </a>
             </li>
 
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="{{ url('apps/admin/position') }}"
               >
-                <i class="fas fa-briefcase w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-briefcase w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Data jabatan</span>
               </a>
             </li>
 
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="{{ url('apps/admin/department') }}"
               >
-                <i class="fas fa-building w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-building w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Data Departemen</span>
               </a>
             </li>
 
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="{{ url('apps/admin/pengajuan') }}"
               >
-                <i class="fas fa-file-circle-plus w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-file-circle-plus w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Pengajuan Lembur</span>
               </a>
             </li>
 
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="{{ url('apps/admin/approval') }}"
               >
-                <i class="fas fa-thumbs-up w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-thumbs-up w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Approval Lembur</span>
               </a>
             </li>
 
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="{{ url('apps/admin/history') }}"
               >
-                <i class="fas fa-clock-rotate-left w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-clock-rotate-left w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Riwayat Lembur</span>
               </a>
             </li>
             
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="charts.html"
               >
-                <i class="fas fa-chart-column w-5 h-5 text-gray-600 dark:text-gray-300"></i>
+                <i class="fas fa-chart-column w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Report</span>
               </a>
             </li>
@@ -124,7 +124,7 @@
         class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
       ></div>
       <aside
-        class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
+        class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white md:hidden"
         x-show="isSideMenuOpen"
         x-transition:enter="transition ease-in-out duration-150"
         x-transition:enter-start="opacity-0 transform -translate-x-20"
@@ -135,9 +135,9 @@
         @click.away="closeSideMenu"
         @keydown.escape="closeSideMenu"
       >
-        <div class="py-4 text-gray-500 dark:text-gray-400">
+        <div class="py-4 text-gray-500">
           <a
-            class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+            class="ml-6 text-lg font-bold text-gray-800"
             href="#"
           >
             Windmill
@@ -149,7 +149,7 @@
                 aria-hidden="true"
               ></span>
               <a
-                class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+                class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
                 href="index.html"
               >
                 <svg
@@ -174,7 +174,7 @@
           <ul>
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="forms.html"
               >
                 <svg
@@ -197,7 +197,7 @@
 
             <li class="relative px-6 py-3">
               <button
-                class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 @click="togglePagesMenu"
                 aria-haspopup="true"
               >
@@ -239,40 +239,40 @@
                   x-transition:leave="transition-all ease-in-out duration-300"
                   x-transition:leave-start="opacity-100 max-h-xl"
                   x-transition:leave-end="opacity-0 max-h-0"
-                  class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
+                  class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
                   aria-label="submenu"
                 >
                   <li
-                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800"
                   >
                     <a class="w-full" href="pages/create-account.html">
                       Divisi Komunikasi Public
                     </a>
                   </li>
                   <li
-                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800"
                   >
                     <a class="w-full" href="pages/forgot-password.html">
                       Divisi Ti
                     </a>
                   </li>
                   <li
-                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800"
                   >
                     <a class="w-full" href="pages/404.html">Divisi SIP</a>
                   </li>
                   <li
-                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800"
                   >
                     <a class="w-full" href="pages/blank.html">Divisi Sandi</a>
                   </li>
                     <li
-                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800"
                   >
                     <a class="w-full" href="pages/login.html">Divisi AI</a>
                   </li>
                   <li
-                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800"
                   >
                     <a class="w-full" href="pages/login.html">Umum</a>
                   </li>
@@ -282,7 +282,7 @@
             
             <li class="relative px-6 py-3">
               <a
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                 href="charts.html"
               >
                 <svg
@@ -307,9 +307,9 @@
         </div>
       </aside>
       <div class="flex flex-col flex-1 w-full">
-        <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+        <header class="z-10 py-4 bg-white shadow-md">
           <div
-            class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
+            class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600"
           >
             <!-- Mobile hamburger -->
             <button
@@ -399,12 +399,12 @@
                     x-transition:leave-end="opacity-0"
                     @click.away="closeProfileMenu"
                     @keydown.escape="closeProfileMenu"
-                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                     aria-label="submenu"
                   >
                     <li class="flex">
                       <a
-                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                         href="#"
                       >
                         <svg
@@ -426,7 +426,7 @@
                     </li>
                     <li class="flex">
                       <a
-                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                         href="#"
                       >
                         <svg
@@ -448,10 +448,11 @@
                       </a>
                     </li>
                     <li class="flex">
-                      <a
-                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="#"
-                      >
+                      <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                      <button type="submit"
+                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800">
                         <svg
                           class="w-4 h-4 mr-3"
                           aria-hidden="true"
@@ -467,7 +468,8 @@
                           ></path>
                         </svg>
                         <span>Log out</span>
-                      </a>
+                      </button>
+                      </form>
                     </li>
                   </ul>
                 </template>

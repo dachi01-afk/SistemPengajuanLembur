@@ -8,43 +8,20 @@ use App\Models\OvertimeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class ApprovalController extends Controller
+class HistoryAdminController extends Controller
 {
+    // Menampilkan halaman histori
     public function index()
     {
-
-        $requests = OvertimeRequest::with(['user.department'])
-            ->where('status', 'pending')
+        $dataPengajuan = OvertimeRequest::with(['user.department', 'approvedby'])
+            ->whereIn('status', ['approved', 'rejected'])
+            ->orderBy('approved_at', 'desc')
             ->get();
 
-        return view('Admin.dataApproval', compact('requests'));
+        return view('Admin.dataHistory', compact('dataPengajuan'));
     }
 
-    public function Approve($id)
-    {
-        $request = OvertimeRequest::findOrFail($id);
-        $request->status = 'approved';
-        $request->approved_by = 1;
-        // $request->approved_by = auth()->id();
-        $request->approved_at = now();
-        $request->save();
-
-        return response()->json(['success' => true, 'message' => 'Pengajuan berhasil disetujui.']);
-    }
-
-    public function Reject(Request $request, $id)
-    {
-        $overtime = OvertimeRequest::findOrFail($id);
-        $overtime->status = 'rejected';
-        $overtime->approved_by = 1;
-        // $overtime->approved_by = auth()->id();
-        $overtime->approved_at = now();
-        $overtime->approval_note = $request->input('approval_note');
-        $overtime->save();
-
-        return response()->json(['success' => true, 'message' => 'Pengajuan ditolak.']);
-    }
-
+    // Menampilkan detail data pengajuan via AJAX
     public function showDetail($id)
     {
         $data = OvertimeRequest::with(['user', 'department', 'approvedby'])

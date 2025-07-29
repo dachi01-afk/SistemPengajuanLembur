@@ -2,9 +2,9 @@
  @section('content_admin')
      
  <main class="h-full overflow-y-auto">
-          <div class=" px-6 mx-auto grid ">
+          <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid">
             <h2
-              class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+              class="my-6 text-2xl font-semibold text-gray-700"
             >
               Riwayat Pengajuan Lembur
             </h2>
@@ -14,7 +14,7 @@
                 <table id="dataTable" class="w-full whitespace-no-wrap">
                   <thead>
                     <tr
-                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                      class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50"
                     >
                       <th class="px-4 py-3">Nama</th>
                       <th class="px-4 py-3">Departemen</th>
@@ -25,19 +25,19 @@
                     </tr>
                   </thead>
                   <tbody
-                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                    class="bg-white divide-y"
                   >
                   @foreach ($dataPengajuan as $pengajuan)
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3 text-sm">{{ $pengajuan->user->name ?? '-' }}</td>
                       <td class="px-4 py-3 text-sm">{{ $pengajuan->department->department ?? '-' }}</td>
                       <td class="px-4 py-3 text-sm">{{ $pengajuan->overtime_date }}</td>
                       <td class="px-4 py-3 text-sm">{{ $pengajuan->start_time }} - {{ $pengajuan->end_time }}</td>
                       <td class="px-4 py-3 text-xs">
                         @if($pengajuan->status =='approved')
-                          <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Approved</span>
+                          <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">Approved</span>
                           @elseif($pengajuan->status =='rejected')
-                          <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">Rejected</span>
+                          <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">Rejected</span>
                         @endif
                       </td>
                       <td class="px-4 py-3 text-sm">
@@ -77,56 +77,56 @@
   x-transition:leave-end="opacity-0 transform translate-y-1/2"
   @click.away="isModalOpen = false"
   @keydown.escape.window="isModalOpen = false"
-  class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+  class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
   role="dialog"
   aria-modal="true"
   aria-labelledby="modalTitle"
 >
 
 <header class="flex justify-between items-center mb-4">
-  <h2 id="modalTitle" class="text-lg font-semibold text-gray-700 dark:text-gray-300">Detail Data</h2>
+  <h2 id="modalTitle" class="text-lg font-semibold text-gray-700">Detail Data</h2>
   <button type="button" @click="isModalOpen = false" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
 </header>
 
 <div class="overflow-x-auto mb-6">
-  <table class="w-full text-sm text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+  <table class="w-full text-sm text-gray-700 border border-gray-200 rounded-lg overflow-hidden">
     <tbody>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium w-1/3 uppercase">Nama</th>
         <td class="py-3 px-4" id="detail-nama">-</td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium uppercase">Departemen</th>
         <td class="py-3 px-4" id="detail-departemen">-</td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium uppercase">Tanggal Pengajuan</th>
         <td class="py-3 px-4" id="detail-tanggal">-</td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium uppercase">Jam</th>
         <td class="py-3 px-4" id="detail-jam">-</td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium uppercase">Alasan</th>
         <td class="py-3 px-4" id="detail-alasan">-</td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium uppercase">Status</th>
         <td class="py-3 px-4">
-          <span id="detail-status" class="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-white">-</span>
+          <span id="detail-status" class="inline-block px-2 py-1 rounded-full text-xs font-semibold bg-gray-300 text-gray-800">-</span>
         </td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium uppercase">Catatan</th>
         <td class="py-3 px-4" id="detail-catatan">-</td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
         <th class="py-3 px-4 text-left font-medium uppercase">Diproses Oleh</th>
         <td class="py-3 px-4" id="detail-diproses-oleh">-</td>
       </tr>
-      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-        <th class="py-3 px-4 text-left font-medium bg-gray-50 dark:bg-gray-800 uppercase">Tanggal Proses</th>
+      <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 border-b bg-gray-50">
+        <th class="py-3 px-4 text-left font-medium bg-gray-50 uppercase">Tanggal Proses</th>
         <td class="py-3 px-4" id="detail-tanggal-proses">-</td>
       </tr>
     </tbody>

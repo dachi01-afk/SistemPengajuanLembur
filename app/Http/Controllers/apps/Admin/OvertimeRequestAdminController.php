@@ -8,7 +8,7 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 
-class OvertimeRequestController extends Controller
+class OvertimeRequestAdminController extends Controller
 {
     public function index()
     {
