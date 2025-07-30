@@ -6,7 +6,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid">
     <h2 class="text-2xl font-semibold text-gray-700 mb-6">Pengajuan Lembur Baru</h2>
     
-    <form id="formLembur">
+    <form id="formLembur" action="{{ route('pengajuan.createbypegawai') }}" method="POST">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-1 gap-5">
             <!-- Nama Pegawai -->
@@ -105,16 +105,16 @@
         e.preventDefault();
 
         $.ajax({
-            url: '{{ route("pengajuan.create") }}',
+            url: '{{ route("pengajuan.createbypegawai") }}',
             method: 'POST',
             data: $(this).serialize(),
             success: function(response) {
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil',
-                    text: 'Pengajuan lembur berhasil di ajukan!',
+                    text: response.message,
                 }).then(() => {
-                    window.location.href = '{{ route("pengajuan.index") }}';
+                    window.location.href = '{{ route("pengajuan.index.pegawai") }}';
                 });
             }
         });

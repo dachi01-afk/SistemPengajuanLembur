@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 // admin
 use App\Http\Controllers\apps\Admin\UserController;
 use App\Http\Controllers\apps\Admin\PositionController;
@@ -10,23 +11,27 @@ use App\Http\Controllers\apps\Admin\DepartmentController;
 use App\Http\Controllers\apps\Admin\HistoryAdminController;
 use App\Http\Controllers\apps\Admin\ApprovalAdminController;
 use App\Http\Controllers\apps\Admin\DashboardAdminController;
-use App\Http\Controllers\apps\Admin\OvertimeRequestAdminController;
+use App\Http\Controllers\apps\Atasan\HistoryAtasanController;
 
 // atasan
-use App\Http\Controllers\apps\Atasan\DashboardAtasanController;
+
 use App\Http\Controllers\apps\Atasan\ApprovalAtasanController;
-use App\Http\Controllers\apps\Atasan\OvertimeRequestAtasanController;
-use App\Http\Controllers\apps\Atasan\HistoryAtasanController;
+use App\Http\Controllers\apps\Atasan\DashboardAtasanController;
+use App\Http\Controllers\apps\Pegawai\HistoryPegawaiController;
 
 // pegawai
 use App\Http\Controllers\apps\Pegawai\DashboardPegawaiController;
+use App\Http\Controllers\apps\Admin\OvertimeRequestAdminController;
+use App\Http\Controllers\apps\Atasan\OvertimeRequestAtasanController;
 use App\Http\Controllers\apps\Pegawai\OvertimeRequestPegawaiController;
-use App\Http\Controllers\apps\Pegawai\HistoryPegawaiController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', [AuthenticatedSessionController::class, 'create'])
+//     return view('login');
+// });
+
+Route::get('/', [AuthenticatedSessionController::class, 'create'])
+    ->name('login');
 
 // ========================================
 //            AUTHENTICATED ROUTES
@@ -83,9 +88,9 @@ Route::middleware('auth')->group(
 
                 // Pengajuan Lembur
                 Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
-                    Route::get('/',                           [OvertimeRequestAdminController::class, 'index'])->name('index');
+                    Route::get('/',                           [OvertimeRequestAdminController::class, 'index'])->name('index.admin');
                     Route::get('/get-user-department/{id}',   [OvertimeRequestAdminController::class, 'getUserDepartment'])->name('get-user-department');
-                    Route::post('/create',                    [OvertimeRequestAdminController::class, 'insertData'])->name('create');
+                    Route::post('/create',                    [OvertimeRequestAdminController::class, 'insertData'])->name('createbyadmin');
                 });
 
                 // Approval Lembur
@@ -124,9 +129,9 @@ Route::middleware('auth')->group(
 
                 // Pengajuan Lembur
                 Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
-                    Route::get('/',                           [OvertimeRequestAtasanController::class, 'index'])->name('index');
+                    Route::get('/',                           [OvertimeRequestAtasanController::class, 'index'])->name('index.atasan');
                     Route::get('/get-user-department/{id}',   [OvertimeRequestAtasanController::class, 'getUserDepartment'])->name('get-user-department');
-                    Route::post('/create',                    [OvertimeRequestAtasanController::class, 'insertData'])->name('create');
+                    Route::post('/create',                    [OvertimeRequestAtasanController::class, 'insertData'])->name('createbyatasan');
                 });
 
                 // Approval Lembur
@@ -153,9 +158,9 @@ Route::middleware('auth')->group(
 
                 // Pengajuan Lembur
                 Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
-                    Route::get('/',                           [OvertimeRequestPegawaiController::class, 'index'])->name('index');
+                    Route::get('/',                           [OvertimeRequestPegawaiController::class, 'index'])->name('index.pegawai');
                     Route::get('/get-user-department/{id}',   [OvertimeRequestPegawaiController::class, 'getUserDepartment'])->name('get-user-department');
-                    Route::post('/create',                    [OvertimeRequestPegawaiController::class, 'insertData'])->name('create');
+                    Route::post('/create',                    [OvertimeRequestPegawaiController::class, 'insertData'])->name('createbypegawai');
                 });
 
                 // Riwayat Lembur

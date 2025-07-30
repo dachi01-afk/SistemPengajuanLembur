@@ -53,7 +53,7 @@ class OvertimeRequestAtasanController extends Controller
             'status'        => 'pending',
         ]);
 
-        return response()->json(['message' => 'Pengajuan lembur berhasil disimpan.']);
+        return response()->json(['message' => 'Pengajuan lembur berhasil di ajukan!']);
         // } catch (\Exception $e) {
         //     return response()->json([
         //         'error' => $e->getMessage()

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\apps\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\OvertimeRequest;
-use App\Models\User;
 
+use App\Models\User;
+use App\Models\OvertimeRequest;
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
 
 class OvertimeRequestAdminController extends Controller
 {
@@ -32,6 +33,8 @@ class OvertimeRequestAdminController extends Controller
 
     public function insertData(Request $request)
     {
+        // dd($request->all());
+        // \Log::info('Insert data dipanggil');
 
         $request->validate([
             'user_id'       => 'required|exists:users,id',
@@ -41,6 +44,7 @@ class OvertimeRequestAdminController extends Controller
             'jam_selesai'   => 'required|date_format:H:i|after:jam_mulai',
             'keterangan'    => 'required|string|max:1000',
         ]);
+
 
         // try {
         OvertimeRequest::create([
@@ -53,7 +57,9 @@ class OvertimeRequestAdminController extends Controller
             'status'        => 'pending',
         ]);
 
-        return response()->json(['message' => 'Pengajuan lembur berhasil disimpan.']);
+        return response()->json(['message' => 'Pengajuan lembur berhasil di ajukan.']);
+
+
         // } catch (\Exception $e) {
         //     return response()->json([
         //         'error' => $e->getMessage()
