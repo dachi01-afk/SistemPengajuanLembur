@@ -23,9 +23,9 @@
             </div>
           </div>
 
-          <!-- Total Pending -->
-          <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
-            <div class="flex items-center justify-center w-12 h-12 mr-4 bg-yellow-100 text-yellow-600 rounded-full text-xl">
+         <!-- Total Pending -->
+          <div class="flex items-center p-4 bg-yellow-100 rounded-lg shadow-xs">
+            <div class="flex items-center justify-center w-12 h-12 mr-4 rounded-full text-yellow-600 text-xl" style="background-color: #Fdffb8;">
               <i class="fa-solid fa-clock"></i>
             </div>
             <div>
