@@ -22,23 +22,23 @@ class RoleMiddleware
             return $next($request);
         }
         // Redirect jika role salah
-        return match ($userRole) {
-            'admin' => redirect()->route('admin.dashboard'),
-            'atasan' => redirect()->route('atasan.dashboard'),
-            'pegawai' => redirect()->route('pegawai.dashboard'),
-            default => abort(403, 'Unauthorized'),
-        };
+        // return match ($userRole) {
+        //     'admin' => redirect()->route('admin.dashboard'),
+        //     'atasan' => redirect()->route('atasan.dashboard'),
+        //     'pegawai' => redirect()->route('pegawai.dashboard'),
+        //     default => abort(403, 'Unauthorized'),
+        // };
 
         // Redirect berdasarkan role yang salah akses
-        // switch ($userRole) {
-        //     case 'admin':
-        //         return redirect()->route('admin.dashboard');
-        //     case 'atasan':
-        //         return redirect()->route('atasan.dashboard');
-        //     case 'pegawai':
-        //         return redirect()->route('pegawai.dashboard');
-        //     default:
-        //         return abort(403, 'Unauthorized');
-        // }
+        switch ($userRole) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
+            case 'atasan':
+                return redirect()->route('atasan.dashboard');
+            case 'pegawai':
+                return redirect()->route('pegawai.dashboard');
+            default:
+                return abort(403, 'Unauthorized');
+        }
     }
 }

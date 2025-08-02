@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\OvertimeRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class DashboardAdminController extends Controller
@@ -25,6 +26,7 @@ class DashboardAdminController extends Controller
 
         // Total jumlah pengajuan
         $totalPengajuan = $dataPengajuan->count();
+
 
 
         // Total berdasarkan status

@@ -39,6 +39,11 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 Route::middleware('auth')->group(
     function () {
 
+        // ========= PROFILE ==========
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
         Route::get('/redirect-by-role', function () {
             $user = Auth::user();
 
@@ -61,6 +66,10 @@ Route::middleware('auth')->group(
 
         // ========= APLIKASI ==========
         Route::prefix('apps')->group(function () {
+
+            Route::get('/',                     [DashboardAdminController::class, 'index'])->name('admin.dashboard');
+            Route::get('/',                     [DashboardAtasanController::class, 'index'])->name('atasan.dashboard');
+            Route::get('/',                     [DashboardPegawaiController::class, 'index'])->name('pegawai.dashboard');
 
             // ================================
             // ========== ADMIN ==============
@@ -121,14 +130,6 @@ Route::middleware('auth')->group(
                 // Laporan
                 // Route::get('/laporan',              [ReportController::class, 'index'])->name('admin.laporan.index');
 
-                // User Management
-                // Route::get('/user-management',      [UserManagementController::class, 'index'])->name('admin.user.index');
-
-                // Settings
-                // Route::get('/settings',             [SettingController::class, 'index'])->name('admin.settings.index');
-
-                // Profile
-                // Route::get('/profile',              [ProfileController::class, 'index'])->name('admin.profile.index');
             });
 
 
@@ -181,11 +182,6 @@ Route::middleware('auth')->group(
                 });
             });
         });
-
-        // ========= PROFILE ==========
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     }
 );
 
