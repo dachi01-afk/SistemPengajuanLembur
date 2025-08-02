@@ -161,7 +161,7 @@ function setStatusBadge(status) {
   });
 
       // Approve
-      function approveRequest(id) {
+function approveRequest(id) {
   Swal.fire({
     title: 'Setujui Pengajuan?',
     text: "Data ini akan disetujui!",
@@ -200,7 +200,7 @@ function setStatusBadge(status) {
 }
 
     // Reject
-      function rejectRequest(id) {
+  function rejectRequest(id) {
     Swal.fire({
       title: 'Tolak Pengajuan?',
       input: 'textarea',
@@ -242,9 +242,11 @@ function setStatusBadge(status) {
   // detail data
   $(document).on('click', '.btn-detail', function () {
     const id = $(this).data('id');
+    
+    $.get('{{ route("approval.detail.admin", ":id") }}'.replace(':id', id), function (response) {
+        const data = response.data;
+        // console.log(response);
 
-    $.get('{{ route("history.detail", ":id") }}'.replace(':id', id), function (res) {
-        const data = res.data;
         $('#detail-nama').text(data.nama);
         $('#detail-departemen').text(data.departemen);
         $('#detail-tanggal').text(data.tanggal_pengajuan);

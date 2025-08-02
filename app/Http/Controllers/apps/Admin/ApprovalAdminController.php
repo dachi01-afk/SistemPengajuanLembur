@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\apps\Admin;
 
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\OvertimeRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ApprovalAdminController extends Controller
@@ -24,8 +26,7 @@ class ApprovalAdminController extends Controller
     {
         $request = OvertimeRequest::findOrFail($id);
         $request->status = 'approved';
-        $request->approved_by = 1;
-        // $request->approved_by = auth()->id();
+        $request->approved_by = auth()->id();
         $request->approved_at = now();
         $request->save();
 
@@ -36,8 +37,7 @@ class ApprovalAdminController extends Controller
     {
         $overtime = OvertimeRequest::findOrFail($id);
         $overtime->status = 'rejected';
-        $overtime->approved_by = 1;
-        // $overtime->approved_by = auth()->id();
+        $overtime->approved_by = auth()->id();
         $overtime->approved_at = now();
         $overtime->approval_note = $request->input('approval_note');
         $overtime->save();
@@ -59,9 +59,9 @@ class ApprovalAdminController extends Controller
                 'jam' => $data->start_time . ' - ' . $data->end_time,
                 'alasan' => $data->reason,
                 'status' => $data->status,
-                'catatan' => $data->approval_note ?? '-',
-                'diproses_oleh' => $data->approvedby->approved_by ?? '-',
-                'tanggal_proses' => $data->approved_at ? Carbon::parse($data->approved_at)->format('d-m-Y H:i') : '-',
+                // 'catatan' => $data->approval_note ?? '-',
+                // 'diproses_oleh' => $data->approvedby->approved_by ?? '-',
+                // 'tanggal_proses' => $data->approved_at ? Carbon::parse($data->approved_at)->format('d-m-Y H:i') : '-',
             ]
         ]);
     }

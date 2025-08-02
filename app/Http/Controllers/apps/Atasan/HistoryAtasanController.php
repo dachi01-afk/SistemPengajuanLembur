@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\OvertimeRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class HistoryAtasanController extends Controller
@@ -13,7 +14,13 @@ class HistoryAtasanController extends Controller
     // Menampilkan halaman histori
     public function index()
     {
+        $user = Auth::user();
+        $departmentId = $user->department_id;
+
         $dataPengajuan = OvertimeRequest::with(['user.department', 'approvedby'])
+            ->whereHas('user', function ($query) use ($departmentId) {
+                $query->where('department_id', $departmentId);
+            })
             ->whereIn('status', ['approved', 'rejected'])
             ->orderBy('approved_at', 'desc')
             ->get();
@@ -37,7 +44,7 @@ class HistoryAtasanController extends Controller
                 'alasan' => $data->reason,
                 'status' => $data->status,
                 'catatan' => $data->approval_note ?? '-',
-                'diproses_oleh' => $data->approvedby->approved_by ?? '-',
+                'diproses_oleh' => $data->approvedby->name ?? '-',
                 'tanggal_proses' => $data->approved_at ? Carbon::parse($data->approved_at)->format('d-m-Y H:i') : '-',
             ]
         ]);

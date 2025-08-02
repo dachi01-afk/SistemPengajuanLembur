@@ -39,17 +39,28 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 Route::middleware('auth')->group(
     function () {
 
-        // ========= PROFILE ==========
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/redirect-by-role', function () {
+            $user = Auth::user();
+
+            // debbud sementara
+            // logger('Redirect Role', ['role_id' => $user->role_id, 'role' => $user->role]);
+            $roleName = $user->role->role ?? null;
+
+            switch ($roleName) {
+                case 'admin':
+                    return redirect()->route('admin.dashboard');
+                case 'atasan':
+                    return redirect()->route('atasan.dashboard');
+                case 'pegawai':
+                    return redirect()->route('pegawai.dashboard');
+                default:
+                    abort(403, 'Unauthorized');
+            }
+        })->middleware(['auth', 'verified']);
+
 
         // ========= APLIKASI ==========
         Route::prefix('apps')->group(function () {
-
-            // ========= DASHBOARD UTAMA ==========
-            Route::get('/', [DashboardAdminController::class, 'index'])->name('index');
-
 
             // ================================
             // ========== ADMIN ==============
@@ -98,13 +109,13 @@ Route::middleware('auth')->group(
                     Route::get('/',                           [ApprovalAdminController::class, 'index'])->name('index');
                     Route::patch('/approve/{id}',             [ApprovalAdminController::class, 'Approve'])->name('approve');
                     Route::patch('/reject/{id}',              [ApprovalAdminController::class, 'Reject'])->name('reject');
-                    Route::get('/detail/{id}',                [ApprovalAdminController::class, 'showDetail'])->name('detail');
+                    Route::get('/detail/{id}',                [ApprovalAdminController::class, 'showDetail'])->name('detail.admin');
                 });
 
                 // Riwayat Lembur
                 Route::prefix('history')->name('history.')->group(function () {
                     Route::get('/',                           [HistoryAdminController::class, 'index'])->name('index');
-                    Route::get('/detail/{id}',                [HistoryAdminController::class, 'showDetail'])->name('detail');
+                    Route::get('/detail/{id}',                [HistoryAdminController::class, 'showDetail'])->name('detail.admin');
                 });
 
                 // Laporan
@@ -139,13 +150,13 @@ Route::middleware('auth')->group(
                     Route::get('/',                           [ApprovalAtasanController::class, 'index'])->name('index');
                     Route::patch('/approve/{id}',             [ApprovalAtasanController::class, 'Approve'])->name('approve');
                     Route::patch('/reject/{id}',              [ApprovalAtasanController::class, 'Reject'])->name('reject');
-                    Route::get('/detail/{id}',                [ApprovalAtasanController::class, 'showDetail'])->name('detail');
+                    Route::get('/detail/{id}',                [ApprovalAtasanController::class, 'showDetail'])->name('detail.atasan');
                 });
 
                 // Riwayat Lembur
                 Route::prefix('history')->name('history.')->group(function () {
                     Route::get('/',                           [HistoryAtasanController::class, 'index'])->name('index');
-                    Route::get('/detail/{id}',                [HistoryAtasanController::class, 'showDetail'])->name('detail');
+                    Route::get('/detail/{id}',                [HistoryAtasanController::class, 'showDetail'])->name('detail.atasan');
                 });
             });
 
@@ -166,30 +177,15 @@ Route::middleware('auth')->group(
                 // Riwayat Lembur
                 Route::prefix('history')->name('history.')->group(function () {
                     Route::get('/',                           [HistoryPegawaiController::class, 'index'])->name('index');
-                    Route::get('/detail/{id}',                [HistoryPegawaiController::class, 'showDetail'])->name('detail');
+                    Route::get('/detail/{id}',                [HistoryPegawaiController::class, 'showDetail'])->name('detail.pegawai');
                 });
             });
         });
 
-        Route::get('/redirect-by-role', function () {
-            $user = Auth::user();
-
-            // debbud sementara
-            logger('Redirect Role', ['role_id' => $user->role_id, 'role' => $user->role]);
-
-            $roleName = $user->role->role ?? null;
-
-            switch ($roleName) {
-                case 'admin':
-                    return redirect()->route('admin.dashboard');
-                case 'atasan':
-                    return redirect()->route('atasan.dashboard');
-                case 'pegawai':
-                    return redirect()->route('pegawai.dashboard');
-                default:
-                    abort(403, 'Unauthorized');
-            }
-        })->middleware(['auth', 'verified']);
+        // ========= PROFILE ==========
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     }
 );
 

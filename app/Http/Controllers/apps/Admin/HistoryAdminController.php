@@ -37,7 +37,7 @@ class HistoryAdminController extends Controller
                 'alasan' => $data->reason,
                 'status' => $data->status,
                 'catatan' => $data->approval_note ?? '-',
-                'diproses_oleh' => $data->approvedby->approved_by ?? '-',
+                'diproses_oleh' => $data->approvedby->name ?? '-',
                 'tanggal_proses' => $data->approved_at ? Carbon::parse($data->approved_at)->format('d-m-Y H:i') : '-',
             ]
         ]);

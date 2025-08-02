@@ -26,7 +26,7 @@
               ></span>
               <a
                 class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800"
-                href="{{ url('apps/') }}"
+                href="{{ url('apps/admin/') }}"
               >
                 <i class="fas fa-house w-5 h-5 text-gray-600"></i>
                 <span class="ml-4">Dashboard</span>

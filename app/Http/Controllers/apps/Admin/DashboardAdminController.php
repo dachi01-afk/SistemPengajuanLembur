@@ -26,6 +26,7 @@ class DashboardAdminController extends Controller
         // Total jumlah pengajuan
         $totalPengajuan = $dataPengajuan->count();
 
+
         // Total berdasarkan status
         $totalPending = $dataPengajuan->where('status', 'pending')->count();
         $totalApproved = $dataPengajuan->where('status', 'approved')->count();
@@ -36,7 +37,7 @@ class DashboardAdminController extends Controller
             'totalPengajuan',
             'totalPending',
             'totalApproved',
-            'totalRejected'
+            'totalRejected',
         ));
     }
 }

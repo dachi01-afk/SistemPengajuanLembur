@@ -163,15 +163,14 @@
     $(document).on('click', '.btn-detail', function () {
     const id = $(this).data('id');
 
-    // $.get('{{ route("history.detail", ":id") }}', function (res) {
-    $.get('{{ route("history.detail", ":id") }}'.replace(':id', id), function (res) {
+    $.get('{{ route("history.detail.pegawai", ":id") }}'.replace(':id', id), function (res) {
         const data = res.data;
         $('#detail-nama').text(data.nama);
         $('#detail-departemen').text(data.departemen);
         $('#detail-tanggal').text(data.tanggal_pengajuan);
         $('#detail-jam').text(data.jam);
         $('#detail-alasan').text(data.alasan);
-        // $('#detail-status').text(data.status);
+        $('#detail-status').text(data.status);
         $('#detail-catatan').text(data.catatan ?? '-');
         $('#detail-diproses-oleh').text(data.diproses_oleh ?? '-');
         $('#detail-tanggal-proses').text(data.tanggal_proses ?? '-');

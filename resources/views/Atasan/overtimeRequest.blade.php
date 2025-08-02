@@ -12,19 +12,15 @@
             <!-- Nama Pegawai -->
              <div>
                 <label class="block text-sm font-medium text-gray-600 mb-1">Nama Pegawai</label>
-                <select name="user_id" class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
-                    <option value="">-- Pilih Pegawai --</option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->nip }})</option>
-                    @endforeach
-                </select>
+                <input type="text"class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" readonly
+                    value="{{ $user->name }} - {{ $user->nip }}">
             </div>
 
             <!-- Department -->
             <div>
                 <label class="block text-sm font-medium text-gray-600 mb-1">Departemen</label>
-                <input type="text" id="department_name" class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" readonly>
-                <input type="hidden" name="department_id" id="department_id">
+                <input type="text" id="department_name" class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" readonly
+                    value="{{ $department->department }}">
             </div>
 
             <!-- Tanggal Lembur -->

@@ -172,7 +172,7 @@ function setStatusBadge(status) {
     confirmButtonText: 'Ya, Setujui!'
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(`{{ url('apps/admin/approval/approve') }}/${id}`, {
+      fetch(`{{ url('apps/atasan/approval/approve') }}/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -216,7 +216,7 @@ function setStatusBadge(status) {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`{{ url('apps/admin/approval/reject') }}/${id}`, {
+        fetch(`{{ url('apps/atasan/approval/reject') }}/${id}`, {
           method: 'PATCH',
           headers: {
           'Content-Type': 'application/json',
@@ -243,7 +243,7 @@ function setStatusBadge(status) {
   $(document).on('click', '.btn-detail', function () {
     const id = $(this).data('id');
 
-    $.get('{{ route("history.detail", ":id") }}'.replace(':id', id), function (res) {
+    $.get('{{ route("approval.detail.atasan", ":id") }}'.replace(':id', id), function (res) {
         const data = res.data;
         $('#detail-nama').text(data.nama);
         $('#detail-departemen').text(data.departemen);

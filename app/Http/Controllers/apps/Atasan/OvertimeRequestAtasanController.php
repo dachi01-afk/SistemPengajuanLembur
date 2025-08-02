@@ -2,40 +2,29 @@
 
 namespace App\Http\Controllers\apps\Atasan;
 
-use App\Http\Controllers\Controller;
-use App\Models\OvertimeRequest;
 use App\Models\User;
-
 use Illuminate\Http\Request;
+use App\Models\OvertimeRequest;
+
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class OvertimeRequestAtasanController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('Atasan.overtimeRequest', compact('users'));
+        $user = Auth::user();
+        $department = $user->department;
+        return view('Atasan.overtimeRequest', compact('user', 'department'));
     }
 
-    public function getUserDepartment($id)
-    {
-        $user = User::with('department')->find($id);
-
-        if (!$user || !$user->department) {
-            return response()->json(['department_id' => null, 'department_name' => null]);
-        }
-
-        return response()->json([
-            'department_id' => $user->department->id,
-            'department_name' => $user->department->department,
-        ]);
-    }
 
     public function insertData(Request $request)
     {
+        $user = Auth::user();
 
         $request->validate([
-            'user_id'       => 'required|exists:users,id',
-            'department_id' => 'required|exists:departments,id',
             'tanggal'       => 'required|date|after_or_equal:today',
             'jam_mulai'     => 'required|date_format:H:i',
             'jam_selesai'   => 'required|date_format:H:i|after:jam_mulai',
@@ -44,8 +33,8 @@ class OvertimeRequestAtasanController extends Controller
 
         // try {
         OvertimeRequest::create([
-            'user_id'       => $request->user_id,
-            'department_id' => $request->department_id,
+            'user_id'       => $user->id,
+            'department_id' => $user->department_id,
             'overtime_date' => $request->tanggal,
             'start_time'    => $request->jam_mulai,
             'end_time'      => $request->jam_selesai,
