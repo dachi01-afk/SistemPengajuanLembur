@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-// admin
 use App\Http\Controllers\apps\Admin\UserController;
+// admin
 use App\Http\Controllers\apps\Admin\PositionController;
 use App\Http\Controllers\apps\Admin\DepartmentController;
+use App\Http\Controllers\apps\Admin\ReportAdminController;
 use App\Http\Controllers\apps\Admin\HistoryAdminController;
 use App\Http\Controllers\apps\Admin\ApprovalAdminController;
 use App\Http\Controllers\apps\Admin\DashboardAdminController;
@@ -15,11 +15,12 @@ use App\Http\Controllers\apps\Atasan\HistoryAtasanController;
 
 // atasan
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\apps\Atasan\ApprovalAtasanController;
 use App\Http\Controllers\apps\Atasan\DashboardAtasanController;
-use App\Http\Controllers\apps\Pegawai\HistoryPegawaiController;
 
 // pegawai
+use App\Http\Controllers\apps\Pegawai\HistoryPegawaiController;
 use App\Http\Controllers\apps\Pegawai\DashboardPegawaiController;
 use App\Http\Controllers\apps\Admin\OvertimeRequestAdminController;
 use App\Http\Controllers\apps\Atasan\OvertimeRequestAtasanController;
@@ -128,8 +129,10 @@ Route::middleware('auth')->group(
                 });
 
                 // Laporan
-                // Route::get('/laporan',              [ReportController::class, 'index'])->name('admin.laporan.index');
-
+                Route::prefix('report')->name('report.')->group(function () {
+                    Route::get('/',                           [ReportAdminController::class, 'index'])->name('index');
+                    Route::get('export',                     [ReportAdminController::class, 'export'])->name('export');
+                });
             });
 
 

@@ -107,7 +107,7 @@
                             </a>
                         </li>
 
-                       
+
                     </ul>
                 </div>
             </aside>
@@ -132,7 +132,7 @@
                         <ul class="flex items-center flex-shrink-0 space-x-6">
 
                             <!-- Theme toggler -->
-                            
+
                             <li class="flex">
                                 <h2>{{ $authUser->name }}</h2>
                             </li>
