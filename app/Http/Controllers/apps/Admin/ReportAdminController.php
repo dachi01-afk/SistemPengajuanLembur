@@ -18,8 +18,8 @@ class ReportAdminController extends Controller
 
     public function index(Request $request)
     {
-        $query = OvertimeRequest::with(['user', 'department'])
-            ->whereIn('status', ['approved', 'rejected']);
+        $query = OvertimeRequest::with(['user', 'department']);
+        // ->whereIn('status', ['approved', 'rejected']);
 
         if ($request->filled('start_date') && $request->filled('end_date')) {
             $query->whereBetween('overtime_date', [$request->start_date, $request->end_date]);
@@ -35,6 +35,7 @@ class ReportAdminController extends Controller
             'total' => $dataPengajuan->count(),
             'approved' => $dataPengajuan->where('status', 'approved')->count(),
             'rejected' => $dataPengajuan->where('status', 'rejected')->count(),
+            'pending' => $dataPengajuan->where('status', 'pending')->count(),
         ];
 
         return view('Admin.dataReport', compact('dataPengajuan', 'summary'));

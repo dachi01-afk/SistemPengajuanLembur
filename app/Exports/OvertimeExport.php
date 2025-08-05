@@ -14,10 +14,22 @@ class OvertimeExport implements FromCollection, WithHeadings, WithMapping, Shoul
      * @return \Illuminate\Support\Collection
      */
 
+    // public function collection()
+    // {
+    //     return OvertimeRequest::with(['user', 'department'])
+    //         ->get();
+    // }
+
+    protected $data;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
     public function collection()
     {
-        return OvertimeRequest::with(['user', 'department'])
-            ->get();
+        return $this->data;
     }
 
     public function map($item): array

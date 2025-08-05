@@ -20,14 +20,28 @@
                  {{-- Export Button --}}
                  <div class="flex justify-between mb-4 items-center">
                      <div class="space-x-2 grid gap-6  md:grid-cols-2 ">
-                         <a href="{{ route('report.export', ['format' => 'excel']) }}"
-                             class="px-4 py-2 bg-red-600 text-white text-sm rounded hover:bg-red-700">
+                         <a href="{{ route('report.export', [
+                             'format' => 'excel',
+                             'start_date' => request('start_date'),
+                             'end_date' => request('end_date'),
+                             'status' => request('status'),
+                         ]) }}"
+                             class="btn btn-success px-4 py-2 bg-red-600 text-white text-sm rounded hover:bg-red-700">
                              Export Excel
                          </a>
-                         <a href="{{ route('report.export', ['format' => 'pdf']) }}"
-                             class="px-4 py-2 bg-red-600 text-white text-sm rounded hover:bg-red-700">
+                         <a href="{{ route('report.export', [
+                             'format' => 'pdf',
+                             'start_date' => request('start_date'),
+                             'end_date' => request('end_date'),
+                             'status' => request('status'),
+                         ]) }}"
+                             class="btn btn-danger px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
                              Export PDF
                          </a>
+                         {{-- <a href="{{ route('report.export', ['format' => 'pdf']) }}?{{ $query }}"
+                             class="px-4 py-2 bg-red-600 text-white text-sm rounded hover:bg-red-700">
+                             Export PDF
+                         </a> --}}
                      </div>
                      {{-- Filter --}}
                      <form method="GET" action="" class="flex flex-wrap gap-2">
@@ -77,7 +91,8 @@
                                          <td class="px-4 py-3 text-sm">{{ $pengajuan->start_time }} -
                                              {{ $pengajuan->end_time }}
                                          </td>
-                                         <td class="px-4 py-3 text-sm">{{ floor($durasi / 60) }}j {{ $durasi % 60 }}m</td>
+                                         <td class="px-4 py-3 text-sm">{{ floor($durasi / 60) }}j {{ $durasi % 60 }}m
+                                         </td>
                                          <td class="px-4 py-3 text-sm">
                                              @php
                                                  $status = $pengajuan->status;
