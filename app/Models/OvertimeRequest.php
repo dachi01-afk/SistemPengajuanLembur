@@ -13,6 +13,7 @@ class OvertimeRequest extends Model
         'start_time',
         'end_time',
         'reason',
+        'spt_file',
         'status',
         'approved_by',
         'approved_at',

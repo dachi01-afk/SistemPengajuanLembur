@@ -8,6 +8,7 @@ use App\Models\OvertimeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ApprovalAtasanController extends Controller
 {
@@ -55,6 +56,11 @@ class ApprovalAtasanController extends Controller
         $data = OvertimeRequest::with(['user', 'department', 'approvedby'])
             ->findOrFail($id);
 
+        $spt_url = null;
+        if (!empty($data->spt_file) && Storage::disk('public')->exists($data->spt_file)) {
+            $spt_url = Storage::url($data->spt_file); // ini hasilnya /storage/spt_files/...
+        }
+
         return response()->json([
             'success' => true,
             'data' => [
@@ -64,6 +70,7 @@ class ApprovalAtasanController extends Controller
                 'jam' => $data->start_time . ' - ' . $data->end_time,
                 'alasan' => $data->reason,
                 'status' => $data->status,
+                'spt_url' => $spt_url
                 // 'catatan' => $data->approval_note ?? '-',
                 // 'diproses_oleh' => $data->approvedby->approved_by ?? '-',
                 // 'tanggal_proses' => $data->approved_at ? Carbon::parse($data->approved_at)->format('d-m-Y H:i') : '-',

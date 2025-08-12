@@ -5,15 +5,19 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid">
             <h2 class="text-2xl font-semibold text-gray-700 mb-6">Pengajuan Lembur Baru</h2>
 
-            <form id="formLembur" action="{{ route('pengajuan.createbyatasan') }}" method="POST">
+            <form id="formLembur" action="{{ route('pengajuan.createbyatasan') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-1 gap-5">
                     <!-- Nama Pegawai -->
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Nama Pegawai</label>
-                        <input
-                            type="text"class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            readonly value="{{ $user->name }} - {{ $user->nip }}">
+                        <select name="pegawai_id"
+                            class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <option value="">-- Pilih Pegawai --</option>
+                            @foreach ($employees as $emp)
+                                <option value="{{ $emp->id }}">{{ $emp->name }} ({{ $emp->nip }})</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <!-- Department -->
@@ -59,6 +63,20 @@
                             class="w-full px-3 py-2 text-sm border border-gray-300 bg-white text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                             required placeholder="Contoh: Menyelesaikan laporan bulanan..."></textarea>
                     </div>
+
+                    <!-- Upload SPT -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-600 mb-1">Upload SPT (PDF)</label>
+                        <input type="file" name="spt_file" accept="application/pdf"
+                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg" required>
+
+                        <div class="mt-2 flex gap-2">
+                            <button type="button" id="btnPreviewPDF"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hidden">
+                                Preview PDF
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Tombol Submit -->
@@ -79,23 +97,24 @@
             // console.log("Form lembur siap");
 
 
-            $('select[name="user_id"]').on('change', function() {
-                const userId = $(this).val();
+            let pdfBlobUrl = '';
 
-                if (userId) {
-                    $.get('pengajuan/get-user-department/' + userId, function(data) {
-
-                        if (data.department_id) {
-                            $('#department_id').val(data.department_id);
-                            $('#department_name').val(data.department_name);
-                        } else {
-                            $('#department_id').val('');
-                            $('#department_name').val('');
-                        }
-                    });
+            // Saat file diubah
+            $('input[name="spt_file"]').on('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.type === "application/pdf") {
+                    pdfBlobUrl = URL.createObjectURL(file);
+                    $('#btnPreviewPDF').removeClass('hidden');
                 } else {
-                    $('#department_id').val('');
-                    $('#department_name').val('');
+                    pdfBlobUrl = '';
+                    $('#btnPreviewPDF').addClass('hidden');
+                }
+            });
+
+            // Saat tombol preview di klik
+            $('#btnPreviewPDF').on('click', function() {
+                if (pdfBlobUrl) {
+                    window.open(pdfBlobUrl, '_blank');
                 }
             });
 
@@ -103,11 +122,14 @@
 
             $('#formLembur').on('submit', function(e) {
                 e.preventDefault();
+                let formData = new FormData(this);
 
                 $.ajax({
                     url: '{{ route('pengajuan.createbyatasan') }}',
                     method: 'POST',
-                    data: $(this).serialize(),
+                    data: formData,
+                    contentType: false,
+                    processData: false,
                     success: function(response) {
                         Swal.fire({
                             icon: 'success',
@@ -116,6 +138,13 @@
                         }).then(() => {
                             window.location.href =
                                 '{{ route('pengajuan.index.atasan') }}';
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: xhr.responseJSON?.error || 'Terjadi kesalahan',
                         });
                     }
                 });

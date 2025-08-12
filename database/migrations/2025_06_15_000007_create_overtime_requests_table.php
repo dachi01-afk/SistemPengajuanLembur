@@ -19,9 +19,11 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->text('reason');
+            $table->string('spt_file')->nullable();
 
             // Approval system
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'feedback_submitted', 'approved', 'rejected'])
+                ->default('pending');
             $table->foreignId('approved_by')->nullable()->constrained('users')->OnDelete('set null');
             $table->timestamp('approved_at')->nullable();
             $table->text('approval_note')->nullable();

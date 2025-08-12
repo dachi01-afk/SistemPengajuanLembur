@@ -47,7 +47,7 @@
                             </a>
                         </li>
 
-                        <li class="relative px-6 py-3">
+                        {{-- <li class="relative px-6 py-3">
                             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                                 href="{{ url('apps/admin/pengajuan') }}">
                                 <i class="fas fa-file-circle-plus w-5 h-5 text-gray-600"></i>
@@ -61,7 +61,7 @@
                                 <i class="fas fa-thumbs-up w-5 h-5 text-gray-600"></i>
                                 <span class="ml-4">Approval Lembur</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="relative px-6 py-3">
                             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
@@ -140,7 +140,7 @@
                             </a>
                         </li>
 
-                        <li class="relative px-6 py-3">
+                        {{-- <li class="relative px-6 py-3">
                             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
                                 href="{{ url('apps/admin/pengajuan') }}">
                                 <i class="fas fa-file-circle-plus w-5 h-5 text-gray-600"></i>
@@ -154,7 +154,7 @@
                                 <i class="fas fa-thumbs-up w-5 h-5 text-gray-600"></i>
                                 <span class="ml-4">Approval Lembur</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="relative px-6 py-3">
                             <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"

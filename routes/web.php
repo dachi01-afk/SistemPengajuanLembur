@@ -24,7 +24,7 @@ use App\Http\Controllers\apps\Pegawai\HistoryPegawaiController;
 use App\Http\Controllers\apps\Pegawai\DashboardPegawaiController;
 use App\Http\Controllers\apps\Admin\OvertimeRequestAdminController;
 use App\Http\Controllers\apps\Atasan\OvertimeRequestAtasanController;
-use App\Http\Controllers\apps\Pegawai\OvertimeRequestPegawaiController;
+use App\Http\Controllers\apps\Pegawai\PenugasanLemburController;
 
 
 // Route::get('/', [AuthenticatedSessionController::class, 'create'])
@@ -108,19 +108,19 @@ Route::middleware('auth')->group(
                 });
 
                 // Pengajuan Lembur
-                Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
-                    Route::get('/',                           [OvertimeRequestAdminController::class, 'index'])->name('index.admin');
-                    Route::get('/get-user-department/{id}',   [OvertimeRequestAdminController::class, 'getUserDepartment'])->name('get-user-department');
-                    Route::post('/create',                    [OvertimeRequestAdminController::class, 'insertData'])->name('createbyadmin');
-                });
+                // Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
+                //     Route::get('/',                           [OvertimeRequestAdminController::class, 'index'])->name('index.admin');
+                //     Route::get('/get-user-department/{id}',   [OvertimeRequestAdminController::class, 'getUserDepartment'])->name('get-user-department');
+                //     Route::post('/create',                    [OvertimeRequestAdminController::class, 'insertData'])->name('createbyadmin');
+                // });
 
                 // Approval Lembur
-                Route::prefix('approval')->name('approval.')->group(function () {
-                    Route::get('/',                           [ApprovalAdminController::class, 'index'])->name('index');
-                    Route::patch('/approve/{id}',             [ApprovalAdminController::class, 'Approve'])->name('approve');
-                    Route::patch('/reject/{id}',              [ApprovalAdminController::class, 'Reject'])->name('reject');
-                    Route::get('/detail/{id}',                [ApprovalAdminController::class, 'showDetail'])->name('detail.admin');
-                });
+                // Route::prefix('approval')->name('approval.')->group(function () {
+                //     Route::get('/',                           [ApprovalAdminController::class, 'index'])->name('index');
+                //     Route::patch('/approve/{id}',             [ApprovalAdminController::class, 'Approve'])->name('approve');
+                //     Route::patch('/reject/{id}',              [ApprovalAdminController::class, 'Reject'])->name('reject');
+                //     Route::get('/detail/{id}',                [ApprovalAdminController::class, 'showDetail'])->name('detail.admin');
+                // });
 
                 // Riwayat Lembur
                 Route::prefix('history')->name('history.')->group(function () {
@@ -172,10 +172,9 @@ Route::middleware('auth')->group(
                 Route::get('/',                     [DashboardPegawaiController::class, 'index'])->name('pegawai.dashboard');
 
                 // Pengajuan Lembur
-                Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
-                    Route::get('/',                           [OvertimeRequestPegawaiController::class, 'index'])->name('index.pegawai');
-                    Route::get('/get-user-department/{id}',   [OvertimeRequestPegawaiController::class, 'getUserDepartment'])->name('get-user-department');
-                    Route::post('/create',                    [OvertimeRequestPegawaiController::class, 'insertData'])->name('createbypegawai');
+                Route::prefix('penugasan')->name('penugasan.')->group(function () {
+                    Route::get('/',                           [PenugasanLemburController::class, 'index'])->name('index.pegawai');
+                    Route::get('/detail/{id}',                [PenugasanLemburController::class, 'showDetail'])->name('detail.pegawai');
                 });
 
                 // Riwayat Lembur

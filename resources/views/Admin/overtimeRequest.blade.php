@@ -128,6 +128,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'Gagal',
+
                             text: xhr.responseJSON?.error || 'Terjadi kesalahan',
                         });
                     }
