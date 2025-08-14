@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('overtime_feedbacks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('overtime_request_id')->constrained('overtime_requests')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Pegawai yang memberikan feedback
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Pegawai yang memberikan feedbac
             $table->text('activity_description');
             $table->string('documentation')->nullable();
             $table->timestamps();

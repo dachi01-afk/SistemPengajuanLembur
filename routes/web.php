@@ -174,8 +174,8 @@ Route::middleware('auth')->group(
                 // Pengajuan Lembur
                 Route::prefix('penugasan')->name('penugasan.')->group(function () {
                     Route::get('/',                           [PenugasanLemburController::class, 'index'])->name('index.pegawai');
-                    Route::get('/detail/{id}',                [PenugasanLemburController::class, 'showDetail'])->name('detail.pegawai');
                     Route::get('/feedback',                   [PenugasanLemburController::class, 'insertFeedback'])->name('feedback');
+                    Route::get('/detail/{id}',                [PenugasanLemburController::class, 'showDetail'])->name('detail.pegawai');
                 });
 
                 // Riwayat Lembur

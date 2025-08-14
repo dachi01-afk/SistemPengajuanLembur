@@ -157,8 +157,7 @@
                     <form id="formFeedback" class="space-y-4">
                         @csrf
                         <input type="hidden" name="overtime_request_id" id="feedback_overtime_id">
-                        <input type="hidden" name="user_id" value="">
-                        {{-- <input type="hidden" name="user_id" value="{{ auth()->user()->id }}"> --}}
+                        
 
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi Aktivitas</label>
@@ -247,11 +246,12 @@
         });
 
            $('#formFeedback').on('submit', function(e) {
+            console.log('button submit berhasil di klik')
                 e.preventDefault();
                 let formData = new FormData(this);
 
                 $.ajax({
-                    url: '{{ route('pengajuan.createbyatasan') }}',
+                    url: '{{ route('penugasan.feedback') }}',
                     method: 'POST',
                     data: formData,
                     contentType: false,
@@ -262,8 +262,7 @@
                             title: 'Berhasil',
                             text: response.message,
                         }).then(() => {
-                            window.location.href =
-                                '{{ route('pengajuan.index.atasan') }}';
+                            location.reload();
                         });
                     },
                     error: function(xhr) {
