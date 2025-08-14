@@ -54,7 +54,7 @@ class PenugasanLemburController extends Controller
         ]);
     }
 
-    public function storeFeedback(Request $request)
+    public function insertFeedback(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'overtime_request_id' => 'required|exists:overtime_requests,id',

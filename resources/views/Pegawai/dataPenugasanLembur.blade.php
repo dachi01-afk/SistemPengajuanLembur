@@ -245,5 +245,35 @@
                 window.open(url, '_blank');
             }
         });
+
+           $('#formFeedback').on('submit', function(e) {
+                e.preventDefault();
+                let formData = new FormData(this);
+
+                $.ajax({
+                    url: '{{ route('pengajuan.createbyatasan') }}',
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.message,
+                        }).then(() => {
+                            window.location.href =
+                                '{{ route('pengajuan.index.atasan') }}';
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: xhr.responseJSON?.error || 'Terjadi kesalahan',
+                        });
+                    }
+                });
+            });
     </script>
 @endsection
