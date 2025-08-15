@@ -1,6 +1,6 @@
  @extends('Atasan.main')
  @section('content_atasan')
-     <main class="h-full overflow-y-auto">
+     <main class="h-full overflow-y-auto" x-data="{ isDetailModalOpen: false, isFeedbackModalOpen: false }">
          <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid">
              <h2 class="my-6 text-2xl font-semibold text-gray-700">
                  Daftar Data Pending
@@ -44,18 +44,25 @@
                                          @endif
                                      </td>
                                      <td class="px-4 py-3 text-sm">
-                                         <button @click="isModalOpen = true"
+                                         <button @click="isDetailModalOpen = true"
                                              data-id="{{ $request->id }}"class="btn-detail text-blue-600 hover:text-blue-900"
                                              title="Detail Pengajuan">
                                              <i class="fas fa-eye"></i>
                                          </button>
                                      </td>
                                      <td class="px-4 py-3 text-sm">
-                                         <button
-                                             class="btn-feedback text-purple-600 hover:text-purple-900 px-3 py-1 border border-purple-600 rounded"
-                                             data-id="{{ $request->id }}" title="Lihat Respon Pegawai">
-                                             Lihat Respon
-                                         </button>
+                                         @if ($request->feedback_submitted)
+                                             <button @click="isFeedbackModalOpen = true"
+                                                 class="text-purple-500 hover:text-purple-700 btn-detailfeedback"
+                                                 title="Lihat Res Pegawai" data-id="{{ $request->id }}">
+                                                 <i class="fa-solid fa-user-check"></i>
+                                             </button>
+                                         @else
+                                             <span
+                                                 class="px-2 py-1 text-xs font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
+                                                 Belum Dilaksanakan
+                                             </span>
+                                         @endif
                                      </td>
                                      <td>
                                          <div class="flex items-center space-x-3">
@@ -79,23 +86,23 @@
          </div>
 
          <!-- Modal -->
-         <div x-cloak x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+         <div x-cloak x-show="isDetailModalOpen" x-transition:enter="transition ease-out duration-150"
              x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
              x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
              class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
 
-             <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+             <div x-show="isDetailModalOpen" x-transition:enter="transition ease-out duration-150"
                  x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
                  x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                 x-transition:leave-end="opacity-0 transform translate-y-1/2" @click.away="isModalOpen = false"
-                 @keydown.escape.window="isModalOpen = false"
+                 x-transition:leave-end="opacity-0 transform translate-y-1/2" @click.away="isDetailModalOpen = false"
+                 @keydown.escape.window="isDetailModalOpen = false"
                  class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
                  role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 
                  <header class="flex justify-between items-center mb-4">
                      <h2 id="modalTitle" class="text-lg font-semibold text-gray-700">Detail Data</h2>
-                     <button type="button" @click="isModalOpen = false"
+                     <button type="button" @click="isDetailModalOpen = false"
                          class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
                  </header>
 
@@ -143,6 +150,53 @@
                          </tbody>
                      </table>
                  </div>
+             </div>
+         </div>
+
+         <!-- Modal detail data yang dilaksanakan pegawai -->
+         <div x-cloak x-show="isFeedbackModalOpen" x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+
+             <div x-show="isFeedbackModalOpen" x-transition:enter="transition ease-out duration-150"
+                 x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0 transform translate-y-1/2" @click.away="isFeedbackModalOpen = false"
+                 @keydown.escape.window="isFeedbackModalOpen = false"
+                 class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-xl"
+                 role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+                 <header class="flex justify-between items-center mb-4">
+                     <h2 id="modalTitle" class="text-lg font-semibold text-gray-700">Detail Feedback</h2>
+                     <button type="button" @click="isFeedbackModalOpen = false"
+                         class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+                 </header>
+
+                 <div class="overflow-x-auto mb-6">
+                     <table class="w-full text-sm text-gray-700 border border-gray-200 rounded-lg overflow-hidden">
+                         <tbody>
+                             <tr class="bg-gray-50">
+                                 <th class="py-3 px-4 text-left font-medium">Deskripsi Kegiatan</th>
+                                 <td class="py-3 px-4" id="detail-deskripsi">-</td>
+                             </tr>
+                             <tr class="bg-white">
+                                 <th class="py-3 px-4 text-left font-medium">Dokumentasi</th>
+                                 <td class="py-3 px-4">
+                                     <button id="btn-preview-doc"
+                                         class="px-3 py-1 text-white bg-purple-600 rounded hover:bg-purple-700 transition"
+                                         disabled>
+                                         Preview
+                                     </button>
+                                 </td>
+                             </tr>
+
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+         </div>
 
      </main>
 
@@ -274,6 +328,36 @@
                      previewBtn.data('url', '').prop('disabled', true);
                  }
              });
+         });
+
+         // detail data konfirmasi
+         $(document).on('click', '.btn-detailfeedback', function() {
+             const id = $(this).data('id');
+
+
+             $.get('{{ route('approval.detailfeedback', ':id') }}'.replace(':id', id), function(res) {
+                 const data = res.data;
+
+
+                 // Set description
+                 $('#detail-deskripsi').text(data.activity_description || '-');
+
+                 // Set tombol preview dokumen
+                 const previewBtn = $('#btn-preview-doc');
+                 if (data.documentation_url) {
+                     previewBtn.data('url', data.documentation_url).prop('disabled', false);
+                 } else {
+                     previewBtn.data('url', '').prop('disabled', true);
+                 }
+             });
+         });
+
+         // Event klik preview document
+         $(document).on('click', '#btn-preview-doc', function() {
+             const url = $(this).data('url');
+             if (url) {
+                 window.open(url, '_blank');
+             }
          });
      </script>
  @endsection

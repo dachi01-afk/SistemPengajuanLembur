@@ -13,12 +13,12 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Pegawai yang memberikan feedbac
             $table->text('activity_description');
             $table->string('documentation')->nullable();
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('overtime_feedback');
+        Schema::dropIfExists('overtime_feedbacks');
     }
 };

@@ -155,6 +155,7 @@ Route::middleware('auth')->group(
                     Route::patch('/approve/{id}',             [ApprovalAtasanController::class, 'Approve'])->name('approve');
                     Route::patch('/reject/{id}',              [ApprovalAtasanController::class, 'Reject'])->name('reject');
                     Route::get('/detail/{id}',                [ApprovalAtasanController::class, 'showDetail'])->name('detail.atasan');
+                    Route::get('/detail-feedback/{id}',       [ApprovalAtasanController::class, 'showdataFeedback'])->name('detailfeedback');
                 });
 
                 // Riwayat Lembur
@@ -174,8 +175,8 @@ Route::middleware('auth')->group(
                 // Pengajuan Lembur
                 Route::prefix('penugasan')->name('penugasan.')->group(function () {
                     Route::get('/',                           [PenugasanLemburController::class, 'index'])->name('index.pegawai');
-                    Route::get('/feedback',                   [PenugasanLemburController::class, 'insertFeedback'])->name('feedback');
                     Route::get('/detail/{id}',                [PenugasanLemburController::class, 'showDetail'])->name('detail.pegawai');
+                    Route::post('/feedback',                   [PenugasanLemburController::class, 'insertFeedback'])->name('feedback');
                 });
 
                 // Riwayat Lembur

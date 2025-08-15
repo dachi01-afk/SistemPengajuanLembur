@@ -2,7 +2,7 @@
 @section('content_pegawai')
     <main class="h-full overflow-y-auto">
 
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid" x-data="{ isDetailModalOpen: false, isFeedbackModalOpen: false }">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid" x-data="{ isDetailModalOpen: false, isFeedbackModalOpen: false, overtimeRequestId: null }">
             <h2 class="text-2xl font-semibold text-gray-700 mb-6">Data Penugasan Lembur</h2>
 
             <!-- New Table -->
@@ -48,11 +48,17 @@
                                         </button>
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        <button @click="isFeedbackModalOpen = true"
-                                            class="text-purple-600 hover:text-purple-800 focus:outline-none btnFeedback"
-                                            data-id="' . $user->id . '">
-                                            <i class="fa-solid fa-paper-plane fa-lg"></i>
-                                        </button>
+                                        @if ($dpl->feedback_submitted)
+                                            <button type="button" onclick="feedbackAlreadySent()"
+                                                class="text-gray-400 cursor-not-allowed" title="Feedback sudah dikirim">
+                                                <i class="fa-solid fa-check"></i>
+                                            </button>
+                                        @else
+                                            <button @click="isFeedbackModalOpen = true" data-id="{{ $dpl->id }}"
+                                                class="text-purple-600 hover:text-purple-800 focus:outline-none btnFeedback">
+                                                <i class="fa-solid fa-paper-plane fa-lg"></i>
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -157,7 +163,6 @@
                     <form id="formFeedback" class="space-y-4">
                         @csrf
                         <input type="hidden" name="overtime_request_id" id="feedback_overtime_id">
-                        
 
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi Aktivitas</label>
@@ -193,6 +198,15 @@
     </main>
 
     <script>
+        function feedbackAlreadySent() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Sudah Dikonfirmasi',
+                text: 'Anda sudah mengirim feedback. Tidak bisa mengirim ulang.',
+                confirmButtonColor: '#6b7280', // abu-abu
+            });
+        }
+
         function setStatusBadge(status) {
             const statusSpan = document.getElementById('detail-status');
             statusSpan.className = "inline-block px-2 py-1 rounded-full text-xs font-semibold";
@@ -245,34 +259,52 @@
             }
         });
 
-           $('#formFeedback').on('submit', function(e) {
-            console.log('button submit berhasil di klik')
-                e.preventDefault();
-                let formData = new FormData(this);
+        $(document).on('click', '.btnFeedback', function() {
+            let requestId = $(this).data('id');
+            console.log(requestId);
+            $('#feedback_overtime_id').val(requestId);
 
-                $.ajax({
-                    url: '{{ route('penugasan.feedback') }}',
-                    method: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: response.message,
-                        }).then(() => {
-                            location.reload();
-                        });
-                    },
-                    error: function(xhr) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal',
-                            text: xhr.responseJSON?.error || 'Terjadi kesalahan',
-                        });
+        });
+
+        $('#formFeedback').on('submit', function(e) {
+            console.log('button submit berhasil di klik')
+            e.preventDefault();
+            let formData = new FormData(this);
+
+            // for (var pair of formData.entries()) {
+            //     console.log(pair[0] + ': ' + pair[1]);
+            // }
+
+            $.ajax({
+                url: '{{ route('penugasan.feedback') }}',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: response.message,
+                    }).then(() => {
+                        location.reload();
+                    });
+                },
+                error: function(xhr) {
+                    let errorMsg = 'Terjadi kesalahan';
+                    if (xhr.responseJSON?.errors) {
+                        errorMsg = Object.values(xhr.responseJSON.errors).flat().join('\n');
                     }
-                });
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: errorMsg,
+                    });
+                }
             });
+        });
     </script>
 @endsection

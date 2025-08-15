@@ -56,11 +56,12 @@ class PenugasanLemburController extends Controller
 
     public function insertFeedback(Request $request)
     {
+
+
         $validator = Validator::make($request->all(), [
             'overtime_request_id' => 'required|exists:overtime_requests,id',
-            'user_id' => 'required|exists:users,id',
             'activity_description' => 'required|string',
-            'documentation' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048'
+            'documentation' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5048'
         ]);
 
         if ($validator->fails()) {
@@ -77,10 +78,14 @@ class PenugasanLemburController extends Controller
 
         $feedback = OvertimeFeedback::create([
             'overtime_request_id' => $request->overtime_request_id,
-            'user_id' => $request->user_id,
+            'user_id' => auth()->id(),
             'activity_description' => $request->activity_description,
             'documentation' => $filePath
         ]);
+
+        // Update status feedback_submitted
+        OvertimeRequest::where('id', $request->overtime_request_id)
+            ->update(['feedback_submitted' => true]);
 
         return response()->json([
             'success' => true,

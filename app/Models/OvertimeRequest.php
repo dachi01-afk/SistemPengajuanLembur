@@ -39,4 +39,9 @@ class OvertimeRequest extends Model
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
+
+    public function feedback()
+    {
+        return $this->hasOne(OvertimeFeedback::class, 'overtime_request_id');
+    }
 }

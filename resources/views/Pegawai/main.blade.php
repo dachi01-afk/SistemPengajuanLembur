@@ -139,7 +139,7 @@
                             </li>
 
                             <!-- Notifications menu -->
-                            <li class="relative">
+                            {{-- <li class="relative">
                                 <button
                                     class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
                                     @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu"
@@ -186,7 +186,7 @@
                                         </li>
                                     </ul>
                                 </template>
-                            </li>
+                            </li> --}}
 
                             <!-- Profile menu -->
                             <li class="relative">

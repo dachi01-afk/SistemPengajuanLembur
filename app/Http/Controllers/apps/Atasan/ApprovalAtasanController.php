@@ -5,6 +5,7 @@ namespace App\Http\Controllers\apps\Atasan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\OvertimeRequest;
+use App\Models\OvertimeFeedback;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -74,6 +75,29 @@ class ApprovalAtasanController extends Controller
                 // 'catatan' => $data->approval_note ?? '-',
                 // 'diproses_oleh' => $data->approvedby->approved_by ?? '-',
                 // 'tanggal_proses' => $data->approved_at ? Carbon::parse($data->approved_at)->format('d-m-Y H:i') : '-',
+            ]
+        ]);
+    }
+
+    public function showdataFeedback($id)
+    {
+        // Ambil feedback berdasarkan id pengajuan lembur
+        $feedback = OvertimeFeedback::where('overtime_request_id', $id)->first();
+
+        if (!$feedback) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data feedback tidak ditemukan'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => [
+                'activity_description' => $feedback->activity_description,
+                'documentation_url'    => $feedback->documentation
+                    ? asset('storage/' . $feedback->documentation)
+                    : null
             ]
         ]);
     }

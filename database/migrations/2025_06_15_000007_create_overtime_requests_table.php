@@ -28,6 +28,8 @@ return new class extends Migration
             $table->timestamp('approved_at')->nullable();
             $table->text('approval_note')->nullable();
 
+            $table->boolean('feedback_submitted')->default(false);
+
             $table->timestamps();
         });
     }
