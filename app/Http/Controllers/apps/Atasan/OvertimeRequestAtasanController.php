@@ -5,6 +5,8 @@ namespace App\Http\Controllers\apps\Atasan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\OvertimeRequest;
+use Illuminate\Support\Facades\DB;        // <— tambahkan
+use Illuminate\Support\Facades\Storage; 
 
 
 use App\Http\Controllers\Controller;
@@ -19,49 +21,62 @@ class OvertimeRequestAtasanController extends Controller
 
         $employees = User::where('department_id', $user->department_id)
             ->where('id', '!=', $user->id)
+            ->orderBy('name')
             ->get();
 
         return view('Atasan.overtimeRequest', compact('user', 'department', 'employees'));
     }
 
-
     public function insertData(Request $request)
     {
         $user = Auth::user();
-        // try {
 
-        $request->validate([
-            'pegawai_id' => 'required|exists:users,id',
-            'tanggal' => 'required|date|after_or_equal:today',
-            'jam_mulai' => 'required|date_format:H:i',
-            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
-            'keterangan' => 'required|string|max:1000',
-            'pegawai_id' => 'required|exists:users,id',
-            'spt_file' => 'required|mimes:pdf|max:2048',
+        $validated = $request->validate([
+            'pegawai_id'   => 'required|array|min:1',
+            'pegawai_id.*' => 'required|exists:users,id',
+            'tanggal'      => 'required|date|after_or_equal:today',
+            'jam_mulai'    => 'required|date_format:H:i',
+            'jam_selesai'  => 'required|date_format:H:i|after:jam_mulai',
+            'keterangan'   => 'required|string|max:1000',
+            'spt_number'   => 'required|string|max:100',
+            'spt_file'     => 'required|mimes:pdf|max:2048',
         ]);
 
-        // Simpan file SPT
+        // simpan file SPT sekali untuk semua record
         $sptPath = $request->file('spt_file')->store('spt_files', 'public');
-        // Konversi ke format TIME MySQL
-        $start = date('H:i:s', strtotime($request->jam_mulai));
-        $end = date('H:i:s', strtotime($request->jam_selesai));
 
-        OvertimeRequest::create([
-            'user_id' => $request->pegawai_id,
-            'department_id' => $user->department_id,
-            'overtime_date' => $request->tanggal,
-            'start_time' => $request->jam_mulai,
-            'end_time' => $request->jam_selesai,
-            'reason' => $request->keterangan,
-            'spt_file' => $sptPath,
-            'status' => 'pending',
-        ]);
+        $start = date('H:i:s', strtotime($validated['jam_mulai']));
+        $end   = date('H:i:s', strtotime($validated['jam_selesai']));
+        $pegawaiIds = array_unique($validated['pegawai_id']);
 
-        return response()->json(['message' => 'Pengajuan lembur berhasil di ajukan!']);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'error' => $e->getMessage()
-        //     ], 500);
-        // }
+        DB::beginTransaction();
+        try {
+            foreach ($pegawaiIds as $pegawaiId) {
+                OvertimeRequest::create([
+                    'user_id'       => $pegawaiId,
+                    'department_id' => $user->department_id,
+                    'overtime_date' => $validated['tanggal'],
+                    'start_time'    => $start,
+                    'end_time'      => $end,
+                    'reason'        => $validated['keterangan'],
+                    'spt_number'    => $validated['spt_number'],
+                    'spt_file'      => $sptPath,
+                    'status'        => 'pending',
+                ]);
+            }
+
+            DB::commit();
+            return response()->json([
+                'message' => 'Pengajuan lembur berhasil diajukan untuk '.count($pegawaiIds).' pegawai!'
+            ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            if ($sptPath && Storage::disk('public')->exists($sptPath)) {
+                Storage::disk('public')->delete($sptPath);
+            }
+            return response()->json([
+                'error' => 'Gagal menyimpan pengajuan: '.$e->getMessage()
+            ], 500);
+        }
     }
 }

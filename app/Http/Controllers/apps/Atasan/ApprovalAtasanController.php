@@ -15,18 +15,23 @@ class ApprovalAtasanController extends Controller
 {
     public function index()
     {
-
         $user = Auth::user();
         $departmentId = $user->department_id;
 
-        $requests = OvertimeRequest::with(['user.department'])
+        // Ambil pending requests di departemen atasan
+        $requests = OvertimeRequest::with(['user.department', 'department'])
             ->whereHas('user', function ($query) use ($departmentId) {
                 $query->where('department_id', $departmentId);
             })
             ->where('status', 'pending')
+            ->orderBy('overtime_date')
+            ->orderBy('start_time')
             ->get();
 
-        return view('Atasan.dataApproval', compact('requests'));
+        // Kelompokkan berdasarkan nomor SPT
+        $groupedRequests = $requests->groupBy('spt_number');
+
+        return view('Atasan.dataApproval', compact('groupedRequests'));
     }
 
     public function Approve($id)
@@ -59,7 +64,7 @@ class ApprovalAtasanController extends Controller
 
         $spt_url = null;
         if (!empty($data->spt_file) && Storage::disk('public')->exists($data->spt_file)) {
-            $spt_url = Storage::url($data->spt_file); // ini hasilnya /storage/spt_files/...
+            $spt_url = Storage::url($data->spt_file);
         }
 
         return response()->json([
@@ -71,7 +76,7 @@ class ApprovalAtasanController extends Controller
                 'jam' => $data->start_time . ' - ' . $data->end_time,
                 'alasan' => $data->reason,
                 'status' => $data->status,
-                'spt_url' => $spt_url
+                'spt_url' => $spt_url,
                 // 'catatan' => $data->approval_note ?? '-',
                 // 'diproses_oleh' => $data->approvedby->approved_by ?? '-',
                 // 'tanggal_proses' => $data->approved_at ? Carbon::parse($data->approved_at)->format('d-m-Y H:i') : '-',
@@ -81,7 +86,6 @@ class ApprovalAtasanController extends Controller
 
     public function showdataFeedback($id)
     {
-        // Ambil feedback berdasarkan id pengajuan lembur
         $feedback = OvertimeFeedback::where('overtime_request_id', $id)->first();
 
         if (!$feedback) {
